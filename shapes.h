@@ -1,8 +1,8 @@
 #ifndef SHAPES_H
 #define SHAPES_H
 
-void renderShape(int type, int color);
-void setcol(int color);
-#define FALSE 0
-#define TRUE 1
+void renderShapeRGB(int type, int r, int g, int b, int head);
+void setColRGB(int r, int g, int b);
+void renderShape(int type, int color, int head);
+void setCol(int color);
 #endif

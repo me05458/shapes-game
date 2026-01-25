@@ -22,3 +22,4 @@ to run the settings: `./settings`
 
 # known issues
 - the `system()` function poses a security vulnerability
+- changeColorRGB() and other RGB functions might not protect against unreasonable values of r,g,b

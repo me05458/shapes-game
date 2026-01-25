@@ -6,7 +6,6 @@
 #define USE_SYS 0
 
 //there are 10 colors.
-#define ZERO 247, 129, 129
 #define ONE 247, 187, 129
 #define TWO 247, 246, 129
 #define THREE 202, 247, 129
@@ -16,10 +15,14 @@
 #define SEVEN 131, 129, 247
 #define EIGHT 202, 129, 247
 #define NINE 247, 129, 234
+#define TEN {247, 129, 129}
 #define BACKUP 100,100,100
+#define COLNUM 10
+#define COLORS {{BACKUP},{ONE},{TWO},{THREE},{FOUR},{FIVE},{SIX},{SEVEN},{EIGHT},{NINE},{TEN}}
 
 
-//there are XX different blocks.
+
+//there are 3 different blocks.
 #define BLOCKS {0,1,2}
 #define BLOCKNUM 3 //these HAVE to match!!!
 /*
