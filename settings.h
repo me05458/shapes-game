@@ -58,7 +58,7 @@ XXXXXX
 2: line
 XX
 XX
-XX
+// XX*/
 
 //ignore this
 #endif

@@ -193,6 +193,7 @@ int main()
             else
             {
                 init();
+                renderBoard();
                 cleanChar();
             }
         }
