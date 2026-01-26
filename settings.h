@@ -9,22 +9,23 @@
 #define USE_SYS 1
 
 //size of board, cells per subdivision of board
-#define SIZE 9
-#define SUBDIV 3
+#define SIZE 5
+#define SUBDIV 1 //don't make it zero
 
-//advanced color stuff, maybe don't worry about it'
+//color stuff
+#define TEXTCOL 0,0,0
 
-#define MODBLOCK false
 #define SMALLOFF 20
-#define BIGOFF 50
+#define BIGOFF 0
 #define BASECOL 100
+//these are the dangerous ones to mess with:
 #define RMOD 0
 #define GMOD 0
 #define BMOD 0
+#define MODBLOCK false
 
-//there are 10 colors.
-#define TEXTCOL 0,0,0
 
+//more color stuff
 /*#define ONE 255, 74, 74
 #define TWO 255, 140, 74
 #define THREE 255, 246, 74

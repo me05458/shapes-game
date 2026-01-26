@@ -248,6 +248,7 @@ int init()
         printf("\e[91mA Catastrophic Faliure Occured (EXIT CODE 2)\e[0m\n");
         return 2;
     }
+    fullCount = 0;
     int col = BASECOL;
     int rmod = 0;
     int gmod = 0;

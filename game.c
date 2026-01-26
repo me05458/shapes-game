@@ -115,7 +115,8 @@ int main()
             {
                 lost:
                 printf("Oh no! You loose!\n"
-                    "You used %d hints, placed %d blocks, and used %d reloads.\n",hintCount,blockCount,reloadCount);
+                    "You used %d hints, placed %d blocks, used %d reloads, and covered %d squares.\n",hintCount,blockCount,reloadCount,fullCount);
+                cleanChar();
                 goto playagain;
             }
         }
@@ -192,6 +193,9 @@ int main()
             }
             else
             {
+                reloadCount = 0;
+                blockCount = 0;
+                hintCount = 0;
                 init();
                 renderBoard();
                 cleanChar();

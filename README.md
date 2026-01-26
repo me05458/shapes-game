@@ -26,7 +26,7 @@ For example, if you want to change the RELOAD definition, change `#define RELOAD
 ## basic stuff:
 - `RELOAD`: if this is set to 1, when a piece cannot be placed on the board, a new piece will be generated. If this is set to 0, you will loose once a piece cannot be placed.
 - `SIZE` is the side length of the field. If you make this too small, you'll have a hard time playing.
-- `SUBDIV`: this is the amount of "subsections" the field will be broken into. This doesn't have to go into size an even number of times, but it looks better if it does. This is purely visual so that the field looks better. Values of <=2 usually look bad.
+- `SUBDIV`: this is the amount of "subsections" the field will be broken into. This doesn't have to go into size an even number of times, but it looks better if it does. This is purely visual so that the field looks better. Values of <=2 usually look bad. **don't set this to 0!** that will break everything in all sorts of fun catastrophic ways. If you don't want subdivisions, set `BIGOFF` to 0 instead.
 
 ## color stuff:
 It is possible to mess the color stuff up so badly it breaks the game. If this is the case, the game will warn you and you can use the settings application to find out where the issue is.  
