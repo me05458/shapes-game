@@ -2,23 +2,46 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+//will you be able to re-draw shapes?
+#define RELOAD 1
+
 //will there be clear()? 1 recommended for regular gameplay.
-#define USE_SYS 0
+#define USE_SYS 1
+
+//size of board, cells per subdivision of board
+#define SIZE 9
+#define SUBDIV 3
+
+//advanced color stuff, maybe don't worry about it'
+
+#define MODBLOCK false
+#define SMALLOFF 20
+#define BIGOFF 50
+#define BASECOL 100
+#define RMOD 0
+#define GMOD 0
+#define BMOD 0
 
 //there are 10 colors.
-#define ONE 247, 187, 129
-#define TWO 247, 246, 129
-#define THREE 202, 247, 129
-#define FOUR 138, 247, 129
-#define FIVE 129, 247, 176
-#define SIX 129, 189, 247
-#define SEVEN 131, 129, 247
-#define EIGHT 202, 129, 247
-#define NINE 247, 129, 234
-#define TEN {247, 129, 129}
+#define TEXTCOL 0,0,0
+
+/*#define ONE 255, 74, 74
+#define TWO 255, 140, 74
+#define THREE 255, 246, 74
+#define FOUR 177, 255, 74
+#define FIVE 100, 255, 74
+#define SIX 174, 255, 128
+#define SEVEN 174, 255, 221
+#define EIGHT 174, 172, 255
+#define NINE 179, 74, 255
+#define TEN 177, 74, 255
+#define ELEVEN 155, 74, 238
+#define TWELVE 155, 74, 140
 #define BACKUP 100,100,100
-#define COLNUM 10
-#define COLORS {{BACKUP},{ONE},{TWO},{THREE},{FOUR},{FIVE},{SIX},{SEVEN},{EIGHT},{NINE},{TEN}}
+#define COLNUM 12
+#define COLORS {{BACKUP},{ONE},{TWO},{THREE},{FOUR},{FIVE},{SIX},{SEVEN},{EIGHT},{NINE},{TEN},{ELEVEN},{TWELVE}}*/
+#define COLORS {{100,100,100},{100,255,174},{255,100,174},{255,174,100},{100,174,255},{174,100,255},{174,255,100}}
+#define COLNUM 6 //does not include backup
 
 
 

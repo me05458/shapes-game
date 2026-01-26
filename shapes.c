@@ -4,7 +4,7 @@
 extern int colors[COLNUM+1][3];
 void setColRGB(int r, int g, int b) //your friendly formatting function
 {
-    printf("\033[30m");
+    printf("\033[38;2;%d;%d;%dm",TEXTCOL);
     if(r == -2)
     {
         printf("\033[0m\n");
@@ -32,7 +32,7 @@ void setCol(int color)
     setColRGB(colors[color][0],colors[color][1],colors[color][2]);
 }
 
-void renderShape(int type, int color, int head)
+void renderShape(int type, int color, bool head)
 {
     if(color<0 || color >COLNUM)
     {
@@ -41,13 +41,12 @@ void renderShape(int type, int color, int head)
     renderShapeRGB(type,colors[color][0],colors[color][1],colors[color][2],head);
 }
 
-void renderShapeRGB(int type, int r, int g, int b, int head)
+void renderShapeRGB(int type, int r, int g, int b, bool head)
 {
-    printf("\033[30m");
     setColRGB(r,g,b);
     switch (type) {
         case -1:
-            if(head == 0)
+            if(head)
             {
                 printf(" * ");
             }
@@ -58,7 +57,7 @@ void renderShapeRGB(int type, int r, int g, int b, int head)
             setCol(-1);
             break;
         case 0:
-            if(head == 0)
+            if(head)
             {
                 printf(" * ");
             }
@@ -68,27 +67,22 @@ void renderShapeRGB(int type, int r, int g, int b, int head)
             }
             setCol(-2);
             break;
-        case 1:
-            switch(head){
-                case 0:
-                    printf(" *       ");
-                    break;
-                case 1:
-                    printf("    *    ");
-                    break;
-                case 2:
-                    printf("    *    ");
-                    break;
-                default:
-                    printf("         ");
+        case 2:
+            if(head)
+            {
+                printf("    *    ");
+            }
+            else
+            {
+                printf("         ");
             }
             setCol(-2);
             break;
-                case 2:
+        case 1:
                     for(int i = 0; i<3; i++)
                     {
                         setColRGB(r,g,b);
-                        if(i == head)
+                        if(i==1&&head)
                         {
                             printf(" * ");
                         }
