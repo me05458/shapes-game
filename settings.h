@@ -60,10 +60,5 @@ XX
 XX
 XX
 
-3: square
-XXXX
-XXXX
- */
-
 //ignore this
 #endif

@@ -115,7 +115,7 @@ int main()
             {
                 lost:
                 printf("Oh no! You loose!\n"
-                    "You used %d hints, placed %d blocks, used %d reloads, and covered %d\% of the board.\n",hintCount,blockCount,reloadCount,(int)((double)fullCount/(double)(SIZE*SIZE))*100);
+                    "You used %d hints, placed %d blocks, and used %d reloads.\n",hintCount,blockCount,reloadCount);
                 goto playagain;
             }
         }
