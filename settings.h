@@ -48,19 +48,25 @@
 
 
 //there are 3 different blocks.
-#define BLOCKS {0,1,2}
-#define BLOCKNUM 3 //these HAVE to match!!!
+#define BLOCKS {0,1,2,3}
+#define BLOCKNUM 4 //these HAVE to match!!!
 /*
 0: square
-XX
+X
 
 1: line
-XXXXXX
+XXX
 
 2: line
-XX
-XX
-// XX*/
+x
+x
+x
+
+3: square
+xx
+xx
+
+*/
 
 //ignore this
 #endif

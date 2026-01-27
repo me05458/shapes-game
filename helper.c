@@ -155,6 +155,26 @@ int blockToField(int x, int y, int block, int col)
             changeColor(x,y+1,col);
             fullCount+=3;
             break;
+        case 3:
+            if(y>=SIZE-1 || x>=SIZE-1)
+            {
+                printf("here");
+                return 2;
+            }
+            if(field[x][y+1][4] == true ||field[x+1][y+1][4] == true || field[x+1][y][4] == true)
+            {
+                printf("else");
+                return 4;
+            }
+            changeColor(x,y,col);
+            changeColor(x+1,y+1,col);
+            changeColor(x+1,y,col);
+            changeColor(x,y+1,col);
+            field[x+1][y+1][4] = true;
+            field[x][y+1][4] = true;
+            field[x][y][4] = true;
+            field[x+1][y][4] = true;
+            break;
         default:
             return 3;
 
@@ -351,8 +371,20 @@ int canPlace(int shape)
                 run = 0;
             }
             return -1;
+        case 3:
+            for(int i = 0; i<SIZE-1;i++)
+            {
+                for(int j = 0; j<SIZE-1; j++)
+                {
+                    if(field[i][j][4] == false && field[i][j+1][4] == false && field[i+1][j][4] == false&&field[i+1][j+1][4] == false)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
         default:
-            printf("\033[91mSomething went wrong\n\033[0m");
+            printf("\033[91msomething went wrong\n\033[0m");
             break;
     }
 }
