@@ -4,6 +4,8 @@
 #include "shapes.h"
 #include "settings.h"
 #include "helper.h"
+#include <time.h>
+#include <unistd.h>
 extern int field[SIZE][SIZE][5]; //field
 extern int blocks[BLOCKNUM];
 extern int colors[COLNUM+1][3];
@@ -119,6 +121,10 @@ int main()
                 cleanChar();
                 goto playagain;
             }
+        }
+        if(CLEAR==1)
+        {
+            clearFull();
         }
         printf("enter coordinates to place: ");
         char xtmp = getchar();

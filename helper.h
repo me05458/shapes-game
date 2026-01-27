@@ -21,4 +21,7 @@ int blockToField(int x, int y, int block, int col);
 bool isFull();
 int canPlace(int shape);
 void renderBoard();
+void waitMS(int ms);
+void clearFull();
+void renderBoardHead();
 #endif

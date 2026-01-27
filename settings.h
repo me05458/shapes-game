@@ -4,19 +4,20 @@
 
 //will you be able to re-draw shapes?
 #define RELOAD 1
+#define CLEAR 1
 
 //will there be clear()? 1 recommended for regular gameplay.
 #define USE_SYS 1
 
 //size of board, cells per subdivision of board
-#define SIZE 5
-#define SUBDIV 1 //don't make it zero
+#define SIZE 9
+#define SUBDIV 3 //don't make it zero
 
 //color stuff
 #define TEXTCOL 0,0,0
 
 #define SMALLOFF 20
-#define BIGOFF 0
+#define BIGOFF 50
 #define BASECOL 100
 //these are the dangerous ones to mess with:
 #define RMOD 0

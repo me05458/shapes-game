@@ -4,6 +4,8 @@
 #include "settings.h"
 #include "helper.h"
 #include "shapes.h"
+#include <time.h>
+
 int field[SIZE][SIZE][5]; //field
 int blocks[BLOCKNUM] = BLOCKS;
 int colors[COLNUM+1][3] = COLORS;
@@ -41,7 +43,6 @@ void changeColorRGB(int xpos, int ypos, int r, int g, int b)
         printf("\e[91msomething went wrong\e[0m\n");
         return;
     }
-    int col = BASECOL;
     if(xpos%2 == ypos%2)
     {
             rmod-=SMALLOFF;
@@ -54,20 +55,43 @@ void changeColorRGB(int xpos, int ypos, int r, int g, int b)
         gmod-=BIGOFF;
         bmod-=BIGOFF;
     }
-    else
-    {
-        col = BASECOL;
-    }
     field[xpos][ypos][0]=r+rmod;
     field[xpos][ypos][1]=g+gmod;
     field[xpos][ypos][2]=b+bmod;
 }
 void changeColor(int xpos, int ypos, int color)
 {
+
     if(xpos<0 || ypos<0 || xpos>9||ypos>9)
     {
         printf("\e[91msomething went wrong\e[0m\n");
         return;
+    }
+    if(color == -1)
+    {
+        int col = BASECOL;
+        int rmod = RMOD;
+        int gmod = GMOD;
+        int bmod = BMOD;
+        if(xpos%2 == ypos%2)
+        {
+            rmod-=SMALLOFF;
+            gmod-=SMALLOFF;
+            bmod-=SMALLOFF;
+        }
+        if((xpos/SUBDIV)%2 == (ypos/SUBDIV)%2)
+        {
+            rmod-=BIGOFF;
+            gmod-=BIGOFF;
+            bmod-=BIGOFF;
+        }
+        else
+        {
+            col = BASECOL;
+        }
+        field[xpos][ypos][0]=col+rmod;
+        field[xpos][ypos][1]=col+gmod;
+        field[xpos][ypos][2]=col+bmod;
     }
     if(color<0 || color >COLNUM)
     {
@@ -155,6 +179,120 @@ bool isFull()
     return true;
 }
 
+void clearFull()
+{
+    //rows:
+    int ri[SIZE];
+    int rinum = 0;
+    bool full = true;
+    for(int i = 0; i<SIZE; i++)
+    {
+        full = true;
+        for(int j = 0; j<SIZE; j++)
+        {
+            if(field[i][j][4]==false)
+            {
+                full = false;
+            }
+        }
+        if(full == true)
+        {
+            ri[rinum] = i;
+            rinum++;
+        }
+    }
+    int rj[SIZE];
+    int rjnum = 0;
+    for(int j = 0; j<SIZE; j++)
+    {
+        full = true;
+        for(int i = 0; i<SIZE; i++)
+        {
+            if(field[i][j][4]==false)
+            {
+                full = false;
+            }
+            field[i][j][3] = false;
+        }
+        if(full == true)
+        {
+            rj[rjnum] = j;
+            rjnum++;
+        }
+    }
+    if(rjnum != 0 || rinum !=0)
+    {
+
+        for(int i = 0; i<rinum; i++)
+        {
+            for(int j = 0; j<SIZE; j++)
+            {
+                int q = ri[i];
+                field[q][j][4] = false;
+                field[q][j][3] = true;
+            }
+        }
+        for(int j = 0; j<rjnum; j++)
+        {
+            for(int i = 0; i<SIZE; i++)
+            {
+                int q = rj[j];
+                if(field[i][q][4] == true)
+                {
+                    field[i][q][3] = true;
+                    field[i][q][4] = false;
+                }
+            }
+        }
+        field[lastPlacedx][lastPlacedy][3] = true;
+        waitMS(500);
+        renderBoardHead();
+        waitMS(500);
+        bool lastImpacted;
+        for(int i = 0; i<rinum; i++)
+        {
+            for(int j = 0; j<SIZE; j++)
+            {
+                int q = ri[i];
+                changeColor(q,j,-1);
+                field[q][j][3] = false;
+                if(q == lastPlacedx && j == lastPlacedy)
+                {
+                    lastImpacted = true;
+                }
+            }
+        }
+        for(int j = 0; j<rjnum; j++)
+        {
+            for(int i = 0; i<SIZE; i++)
+            {
+                int q = rj[j];
+                changeColor(i,q,-1);
+                field[i][q][3] = false;
+                if(q == lastPlacedy && i == lastPlacedx)
+                {
+                    lastImpacted = true;
+                }
+            }
+        }
+        field[lastPlacedx][lastPlacedy][3] = false;
+        if(lastImpacted){
+            renderBoardHead();
+        }
+        else
+        {
+            renderBoard();
+        }
+    }
+}
+
+void waitMS(int ms) //this is such a funny way of sleeping this is what I shall do.
+{
+    struct timespec ts;
+    ts.tv_sec = ms / 1000;
+    ts.tv_nsec = (ms % 1000) * 1000000;
+    nanosleep(&ts, NULL);
+}
 int canPlace(int shape)
 {
     switch(shape){
@@ -234,6 +372,28 @@ void renderBoard()
         for(int j = 0; j<SIZE; j++)
         {
             renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j));
+        }
+        printf("\n");
+    }
+    setCol(-1);
+    printf("\n");
+    renderShape(c_block,c_col,true);
+}
+void renderBoardHead()
+{
+    clearScreen();
+    printf("  ");
+    for(int i = 0; i<SIZE; i++)
+    {
+        printf(" %d ",i);
+    }
+    printf("\n");
+    for(int i = 0; i<SIZE; i++)
+    {
+        printf("%d ",i);
+        for(int j = 0; j<SIZE; j++)
+        {
+            renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],field[i][j][3]);
         }
         printf("\n");
     }

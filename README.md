@@ -25,6 +25,7 @@ For example, if you want to change the RELOAD definition, change `#define RELOAD
 
 ## basic stuff:
 - `RELOAD`: if this is set to 1, when a piece cannot be placed on the board, a new piece will be generated. If this is set to 0, you will loose once a piece cannot be placed.
+- `CLEAR`: if this is set to 1, completed rows and collumns will be cleared (this makes the game impossible to win, the point is simply to keep playing). 0 will use normal mode.
 - `SIZE` is the side length of the field. If you make this too small, you'll have a hard time playing.
 - `SUBDIV`: this is the amount of "subsections" the field will be broken into. This doesn't have to go into size an even number of times, but it looks better if it does. This is purely visual so that the field looks better. Values of <=2 usually look bad. **don't set this to 0!** that will break everything in all sorts of fun catastrophic ways. If you don't want subdivisions, set `BIGOFF` to 0 instead.
 
@@ -73,3 +74,4 @@ x
 - the `system()` function poses a security vulnerability
 - changeColorRGB() and other RGB functions might not protect against unreasonable values of r,g,b
 - Messing with the settings.h file seems like it could pose an issue
+- Some iniefficiency/redundancy in rendering
