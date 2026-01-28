@@ -1,5 +1,6 @@
 #ifndef SHAPES_H
 #define SHAPES_H
+#include <stdbool.h>
 
 void renderShapeRGB(int type, int r, int g, int b, bool head);
 void setColRGB(int r, int g, int b);

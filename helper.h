@@ -2,6 +2,7 @@
 #define HELPER_H
 #define FALSE 0
 #define TRUE 1
+#include <stdbool.h>
 
 //it turns out everything is in here :P
 

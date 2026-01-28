@@ -2,6 +2,7 @@
 #include "settings.h"
 #include "shapes.h"
 #include <stdbool.h>
+
 extern int colors[COLNUM+1][3];
 void setColRGB(int r, int g, int b) //your friendly formatting function
 {

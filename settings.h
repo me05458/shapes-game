@@ -1,6 +1,7 @@
 //ignore this
 #ifndef SETTINGS_H
 #define SETTINGS_H
+#include <stdbool.h>
 
 //will you be able to re-draw shapes?
 #define RELOAD 1
