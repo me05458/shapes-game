@@ -20,6 +20,7 @@ void changeColor(int xpos, int ypos, int color);
 int charEater(char c);
 int blockToField(int x, int y, int block, int col);
 bool isFull();
+bool isEmpty();
 int canPlace(int shape);
 void renderBoard();
 void waitMS(int ms);

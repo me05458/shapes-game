@@ -15,6 +15,7 @@ int c_col;
 int lastPlacedx = -1;
 int lastPlacedy = -1;
 int fullCount = 0;
+bool started = true;
 void cleanChar()
 {
     while(getchar() != '\n')
@@ -110,7 +111,7 @@ int charEater(char c)
     return result;
 }
 int blockToField(int x, int y, int block, int col)
-{
+{ //SHAPES
     if(x<0 || y<0 || x>=SIZE||y>=SIZE)
     {
         return 1;
@@ -121,7 +122,6 @@ int blockToField(int x, int y, int block, int col)
     }
     switch(block){
         case(0):
-            changeColor(x,y,col);
             fullCount++;
             break;
         case(1):
@@ -133,7 +133,6 @@ int blockToField(int x, int y, int block, int col)
             {
                 return 4;
             }
-            changeColor(x,y,col);
             field[x-1][y][4] = true;
             changeColor(x-1,y,col);
             field[x+1][y][4] = true;
@@ -149,7 +148,6 @@ int blockToField(int x, int y, int block, int col)
             {
                 return 4;
             }
-            changeColor(x,y,col);
             field[x][y-1][4] = true;
             field[x][y+1][4] = true;
             changeColor(x,y-1,col);
@@ -159,15 +157,12 @@ int blockToField(int x, int y, int block, int col)
         case 3:
             if(y>=SIZE-1 || x>=SIZE-1)
             {
-                printf("here");
                 return 2;
             }
             if(field[x][y+1][4] == true ||field[x+1][y+1][4] == true || field[x+1][y][4] == true)
             {
-                printf("else");
                 return 4;
             }
-            changeColor(x,y,col);
             changeColor(x+1,y+1,col);
             changeColor(x+1,y,col);
             changeColor(x,y+1,col);
@@ -175,6 +170,33 @@ int blockToField(int x, int y, int block, int col)
             field[x][y+1][4] = true;
             field[x][y][4] = true;
             field[x+1][y][4] = true;
+            fullCount+=4;
+            break;
+        case 4:
+            if(y>=SIZE-1)
+            {
+                return 2;
+            }
+            if(field[x][y+1][4] == true)
+            {
+                return 4;
+            }
+            changeColor(x,y+1,col);
+            field[x][y+1][4] = true;
+            fullCount+=2;
+            break;
+        case 5:
+            if(x>=SIZE-1)
+            {
+                return 2;
+            }
+            if(field[x+1][y][4]==true)
+            {
+                return 4;
+            }
+            changeColor(x+1,y,col);
+            field[x+1][y][4]=true;
+            fullCount+=2;
             break;
         default:
             return 3;
@@ -182,6 +204,7 @@ int blockToField(int x, int y, int block, int col)
     }
     lastPlacedx = x;
     lastPlacedy = y;
+    changeColor(x,y,col);
     field[x][y][4] = true;
     return 0;
 }
@@ -199,6 +222,22 @@ bool isFull()
     }
     return true;
 }
+
+bool isEmpty()
+{
+    for(int i = 0; i<SIZE; i++)
+    {
+        for(int j = 0; j<SIZE;j++)
+        {
+            if(field[i][j][4]==true)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 
 void clearFull()
 {
@@ -315,7 +354,7 @@ void waitMS(int ms) //this is such a funny way of sleeping this is what I shall 
     nanosleep(&ts, NULL);
 }
 int canPlace(int shape)
-{
+{//SHAPE
     switch(shape){
         case(0):
             for(int i = 0; i<SIZE; i++)
@@ -384,6 +423,48 @@ int canPlace(int shape)
                 }
             }
             return -1;
+        case 4:
+            for(int i = 0; i<SIZE; i++)
+            {
+                for(int j = 0; j<SIZE; j++)
+                {
+                    if(field[i][j][4] == false)
+                    {
+                        run++;
+                    }
+                    else
+                    {
+                        run = 0;
+                    }
+                    if(run ==2)
+                    {
+                        return i;
+                    }
+                }
+                run = 0;
+            }
+            return -1;
+        case 5:
+            for(int j = 0; j<SIZE; j++)
+            {
+                for(int i = 0; i<SIZE; i++)
+                {
+                    if(field[i][j][4] == false)
+                    {
+                        run++;
+                    }
+                    else
+                    {
+                        run = 0;
+                    }
+                    if(run ==2)
+                    {
+                        return i;
+                    }
+                }
+                run = 0;
+            }
+            return -1;
         default:
             printf("\033[91msomething went wrong\n\033[0m");
             break;
@@ -436,6 +517,7 @@ void renderBoardHead()
 }
 int init()
 {
+    started = true;
     char randString[32];
     if(sodium_init() <0){ //random library died! Oh no!
         printf("\e[91mA Catastrophic Faliure Occured (EXIT CODE 2)\e[0m\n");

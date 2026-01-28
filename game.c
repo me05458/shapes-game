@@ -14,6 +14,7 @@ extern int lastPlacedx;
 extern int lastPlacedy;
 extern int c_block;
 extern int c_col;
+extern bool started;
 int reloadCount = 0;
 int hintCount = 0;
 extern int fullCount;
@@ -85,7 +86,7 @@ int main()
     char input;
     input = getchar();
     cleanChar();*/
-    c_block = randombytes_uniform(BLOCKNUM);
+    c_block = blocks[randombytes_uniform(BLOCKNUM)];
     c_col = randombytes_uniform(COLNUM)+1;
     renderBoard();
     while(keepgo)
@@ -126,6 +127,13 @@ int main()
         if(CLEAR==1)
         {
             clearFull();
+            if(!started&&isEmpty())
+            {
+                printf("Congradulations! You win!\n"
+                "You used %d hints, placed %d blocks, and used %d reloads\n",hintCount,blockCount,reloadCount
+                );
+                goto playagain;
+            }
         }
         printf("enter coordinates to place: ");
         char xtmp = getchar();
@@ -180,8 +188,9 @@ int main()
         else
         {
             blockCount++;
-            c_block = randombytes_uniform(BLOCKNUM);
+            c_block = blocks[randombytes_uniform(BLOCKNUM)];
             c_col = randombytes_uniform(COLNUM)+1;
+            started = false;
             renderBoard();
 
         }
@@ -193,7 +202,7 @@ int main()
             playagain:
             printf("Play again? (Y/n)\n");
             char tmp = getchar();
-            if(tmp == 'n' || tmp == 'N')
+            if(tmp == 'n' || tmp == 'N'||tmp=='q'||tmp=='Q')
             {
                 printf("goodbye!\n");
                 return 0;
@@ -208,7 +217,6 @@ int main()
                 cleanChar();
             }
         }
-
     }
 
     return 0;

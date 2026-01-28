@@ -44,7 +44,7 @@ void renderShape(int type, int color, bool head)
 }
 
 void renderShapeRGB(int type, int r, int g, int b, bool head)
-{
+{ //SHAPES
     setColRGB(r,g,b);
     switch (type) {
         case -1:
@@ -104,6 +104,35 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
             printf("   ");
             setColRGB(r,g,b);
+            printf("   ");
+            setCol(-2);
+            break;
+        case 4:
+            setColRGB(r,g,b);
+            if(head)
+            {
+                printf(" * ");
+            }
+            else
+            {
+                printf("   ");
+            }
+            setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setCol(-2);
+            break;
+        case 5:
+            setColRGB(r,g,b);
+            if(head)
+            {
+                printf(" * ");
+            }
+            else
+            {
+                printf("   ");
+            }
+            setCol(-2);
+            setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
             printf("   ");
             setCol(-2);
             break;

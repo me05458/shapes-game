@@ -61,13 +61,13 @@ x
 ```
 1. line:
 ```
-xxx
+x
+x
+x
 ```
 2. line:
 ```
-x
-x
-x
+xxx
 ```
 3. square:
 ```
