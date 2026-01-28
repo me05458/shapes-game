@@ -11,7 +11,7 @@ Debian: \
 `sudo apt install make gcc libsodium-dev`
 
 Arch (with pacman): \
-`sudo pacman -S make gcc libsoduim`
+`sudo pacman -S make gcc libsodium`
 
 # installation and running
 installation:
