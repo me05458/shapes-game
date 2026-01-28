@@ -10,10 +10,13 @@ Fedora:\
 Debian: \
 `sudo apt install make gcc libsodium-dev`
 
+Arch (with pacman): \
+`sudo pacman -S make gcc libsoduim`
+
 # installation and running
 installation:
 ```
-git clone https://github.com/me05458/code-game&&cd code-game
+git clone https://github.com/me05458/shapes-game&&cd shapes-game
 make
 ```
 to run the game: `./game`\
