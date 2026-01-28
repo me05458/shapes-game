@@ -74,6 +74,15 @@ xxx
 xx
 xx
 ```
+4. line:
+```
+xx
+```
+5. line:
+```
+x
+x
+```
 - `BLOCKS` is defined a bit like colors, in the form `{#,#,#}` where the #s are the numbers of blocks described above you wish to use.
 - `BLOCKNUM` works exactly like colornum, except for types of block.
 
