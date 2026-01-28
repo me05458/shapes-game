@@ -4,6 +4,7 @@
 #include "shapes.h"
 #include "settings.h"
 #include "helper.h"
+#include <stdbool.h>
 extern int field[SIZE][SIZE][5]; //field
 extern int blocks[BLOCKNUM];
 extern int colors[COLNUM+1][3];

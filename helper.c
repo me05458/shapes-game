@@ -5,6 +5,7 @@
 #include "helper.h"
 #include "shapes.h"
 #include <time.h>
+#include <stdbool.h>
 
 int field[SIZE][SIZE][5]; //field
 int blocks[BLOCKNUM] = BLOCKS;
