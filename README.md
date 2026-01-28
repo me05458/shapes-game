@@ -66,7 +66,11 @@ x
 x
 x
 ```
-(4. bigger square is not supported yet).
+3. square:
+```
+xx
+xx
+```
 - `BLOCKS` is defined a bit like colors, in the form `{#,#,#}` where the #s are the numbers of blocks described above you wish to use.
 - `BLOCKNUM` works exactly like colornum, except for types of block.
 
