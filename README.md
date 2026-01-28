@@ -1,5 +1,5 @@
 # shapes-game
-A game about putting shapes in a box
+A game about shapes.
 
 # requirements
 `make, gcc, libsodium`
