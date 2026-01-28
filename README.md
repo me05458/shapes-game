@@ -54,7 +54,7 @@ Another, advanced, way of describing them is:
 - `COLNUM`: This is the number of colors (not collumns, sorry). This has to be the number of your colors excluding the backup color. This has to be correct in order for all colors to be displayed, but an incorrect value will not break the game.
 
 ## block stuff:
-Supported blocks are:
+Supported blocks are:  
 0. square:
 ```
 x
