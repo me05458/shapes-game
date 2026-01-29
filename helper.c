@@ -206,9 +206,10 @@ int blockToField(int x, int y, int block, int col)
             bool r1;
             bool r2;
             bool r3;
-            r1 = field[x][y][4] == true || field[x][y+1][4] == true || field[x][y+2][4] == true;
-            r2 = field[x+1][y][4] == true || field[x+1][y+1][4] == true || field[x+1][y+2][4] == true;
-            r3 = field[x+2][y][4] == true || field[x+2][y+1][4] == true || field[x+2][y+2][4] == true;
+            r1 = field[x][y][4] == true || field[x][y+1][4] == true || field[x][y-1][4] == true;
+            r2 = field[x+1][y][4] == true || field[x+1][y+1][4] == true || field[x+1][y-1][4] == true;
+            r3 = field[x-1][y][4] == true || field[x-1][y+1][4] == true || field[x-1][y-1][4] == true;
+            printf("r1: %d, r2: %d, r3: %d\n",field[x][y][4],field[x][y+1][4], field[x][y+2][4]);
             if(r1 || r2 || r3)
             {
                 return 4;
