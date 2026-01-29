@@ -28,9 +28,12 @@ For example, if you want to change the RELOAD definition, change `#define RELOAD
 
 ## basic stuff:
 - `RELOAD`: if this is set to 1, when a piece cannot be placed on the board, a new piece will be generated. If this is set to 0, you will loose once a piece cannot be placed.
-- `CLEAR`: if this is set to 1, completed rows and collumns will be cleared (this makes the game impossible to win, the point is simply to keep playing). 0 will use normal mode.
+- `CLEAR`: if this is set to 1, completed rows and collumns will be cleared (the game is won if you clear the whole field and lost if there is nowhere left to place a piece if RELOAD is disabled). 0 will use normal mode.
 - `SIZE` is the side length of the field. If you make this too small, you'll have a hard time playing.
 - `SUBDIV`: this is the amount of "subsections" the field will be broken into. This doesn't have to go into size an even number of times, but it looks better if it does. This is purely visual so that the field looks better. Values of <=2 usually look bad. **don't set this to 0!** that will break everything in all sorts of fun catastrophic ways. If you don't want subdivisions, set `BIGOFF` to 0 instead.
+
+## random advanced stuff:
+- `WAITTIME`: this is the amount (in ms) that the stars will falsh for when a line is cleared (assuming CLEAR is enabled).
 
 ## color stuff:
 It is possible to mess the color stuff up so badly it breaks the game. If this is the case, the game will warn you and you can use the settings application to find out where the issue is.  
@@ -82,6 +85,12 @@ xx
 ```
 x
 x
+```
+6. square (note that it is your business to make sure that the board size is big enough for any of the blocks you choose)
+```
+xxx
+xxx
+xxx
 ```
 - `BLOCKS` is defined a bit like colors, in the form `{#,#,#}` where the #s are the numbers of blocks described above you wish to use.
 - `BLOCKNUM` works exactly like colornum, except for types of block.
