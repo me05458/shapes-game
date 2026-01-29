@@ -26,6 +26,9 @@
 #define BMOD 0
 #define MODBLOCK false
 
+//random other advanced settings:
+#define WAITTIME 500
+
 
 //more color stuff
 /*#define ONE 255, 74, 74
@@ -49,8 +52,8 @@
 
 
 //there are 3 different blocks.
-#define BLOCKS {1,2,3,4,5,0}
-#define BLOCKNUM 6 //these HAVE to match!!!
+#define BLOCKS {1,2,3,4,5,0,6}
+#define BLOCKNUM 7 //these HAVE to match!!!
 /*
 0: square
 X
@@ -76,19 +79,8 @@ x
 
 6:
 xxx
-  x
-
-7
-  x
 xxx
-
-8
-x
 xxx
-
-9
-xxx
-x
 */
 
 //ignore this

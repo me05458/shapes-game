@@ -198,6 +198,30 @@ int blockToField(int x, int y, int block, int col)
             field[x+1][y][4]=true;
             fullCount+=2;
             break;
+        case 6:
+            if(y<1||y>=SIZE-1 || x<1||x>=SIZE-1)
+            {
+                return 2;
+            }
+            bool r1;
+            bool r2;
+            bool r3;
+            r1 = field[x][y][4] == true || field[x][y+1][4] == true || field[x][y+2][4] == true;
+            r2 = field[x+1][y][4] == true || field[x+1][y+1][4] == true || field[x+1][y+2][4] == true;
+            r3 = field[x+2][y][4] == true || field[x+2][y+1][4] == true || field[x+2][y+2][4] == true;
+            if(r1 || r2 || r3)
+            {
+                return 4;
+            }
+            for(int i = x-1; i<=x+1; i++)
+            {
+                for(int j = y-1; j<=y+1; j++)
+                {
+                    changeColor(i,j,col);
+                    field[i][j][4] = true;
+                }
+            }
+            break;
         default:
             return 3;
 
@@ -305,9 +329,8 @@ void clearFull()
             }
         }
         field[lastPlacedx][lastPlacedy][3] = true;
-        waitMS(500);
         renderBoardHead();
-        waitMS(500);
+        waitMS(WAITTIME);
         bool lastImpacted;
         for(int i = 0; i<rinum; i++)
         {
@@ -463,6 +486,24 @@ int canPlace(int shape)
                     }
                 }
                 run = 0;
+            }
+            return -1;
+        case 6:
+            bool r1 = false;
+            bool r2 = false;
+            bool r3 = false;
+            for(int i = 0; i<SIZE-2;i++)
+            {
+                for(int j = 0; j<SIZE-2; j++)
+                {
+                    r1 = field[i][j][4] == false && field[i][j+1][4] == false && field[i][j+2][4] == false;
+                    r2 = field[i+1][j][4] == false && field[i+1][j+1][4] == false && field[i+1][j+2][4] == false;
+                    r3 = field[i+2][j][4] == false && field[i+2][j+1][4] == false && field[i+2][j+2][4] == false;
+                    if(r1&&r2&&r3)
+                    {
+                        return i;
+                    }
+                }
             }
             return -1;
         default:
