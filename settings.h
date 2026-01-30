@@ -4,8 +4,11 @@
 #include <stdbool.h>
 
 //will you be able to re-draw shapes?
-#define RELOAD 1
+#define RELOAD 0
 #define CLEAR 1
+
+//random advanced settings:
+#define NORM_COORD 1
 
 //will there be clear()? 1 recommended for regular gameplay.
 #define USE_SYS 1

@@ -170,8 +170,18 @@ int main()
         }
         char ytmp = getchar();
         cleanChar();
-        int y = charEater(xtmp);
-        int x = charEater(ytmp);
+        int y = 0;
+        int x = 0;
+        if(NORM_COORD==0)
+        {
+            y = charEater(ytmp);
+            x = charEater(xtmp);
+        }
+        else
+        {
+            y = charEater(xtmp);
+            x = charEater(ytmp);
+        }
         int l = blockToField(x,y,c_block,c_col);
         if(l == 1)
         {
