@@ -3,19 +3,19 @@
 #define SETTINGS_H
 #include <stdbool.h>
 
-//will you be able to re-draw shapes?
+//basic stuff
 #define RELOAD 0
 #define CLEAR 1
+#define SIZE 9
+#define SUBDIV 3 //don't make it zero
 
 //random advanced settings:
 #define NORM_COORD 1
+#define DOUBLEINT 1
+#define WAITTIME 500
 
 //will there be clear()? 1 recommended for regular gameplay.
 #define USE_SYS 1
-
-//size of board, cells per subdivision of board
-#define SIZE 9
-#define SUBDIV 3 //don't make it zero
 
 //color stuff
 #define TEXTCOL 0,0,0
@@ -29,8 +29,6 @@
 #define BMOD 0
 #define MODBLOCK false
 
-//random other advanced settings:
-#define WAITTIME 500
 
 
 //more color stuff
@@ -54,7 +52,7 @@
 
 
 
-//there are 3 different blocks.
+//block stuff
 #define BLOCKS {1,2,3,4,5,0,6}
 #define BLOCKNUM 7 //these HAVE to match!!!
 /*

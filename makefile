@@ -20,20 +20,17 @@ all: $(LINK_TARGET)
 	@printf "\e[0mdone\n"
 	@printf "\e[0muse \e[92m./game\e[0m to play or \e[93m./settings\e[0m to view settings.\n"
 
-$(LINK_TARGET): $(OBJS) $(SETTINGS_OBJS) $(GAME_OBJS) settings.h
+$(LINK_TARGET): $(OBJS) $(SETTINGS_OBJS) $(GAME_OBJS) settings.h makefile
 	gcc -o $@ settings.h $(GAME_OBJS) $(OBJS) -lsodium
 	gcc -o $(SETTINGS_TARGET) settings.h $(OBJS) $(SETTINGS_OBJS) -lsodium
 
-
-%.o : %.c
+%.o : %.c settings.h
 	gcc -o $@ -c $<
 
 game.o: settings.h shapes.h helper.h
 check.o: settings.h helper.h
 shapes.o: settings.h
 
-set: clean
-	make
 
 clean:
 	@printf "\e[0m"

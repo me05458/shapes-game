@@ -40,7 +40,7 @@ void changeColorRGB(int xpos, int ypos, int r, int g, int b)
         gmod = GMOD;
         bmod = BMOD;
     }
-    if(xpos<0 || ypos<0 || xpos>9||ypos>9)
+    if(xpos<0 || ypos<0 || xpos>SIZE||ypos>SIZE)
     {
         printf("\e[91msomething went wrong\e[0m\n");
         return;
@@ -64,7 +64,7 @@ void changeColorRGB(int xpos, int ypos, int r, int g, int b)
 void changeColor(int xpos, int ypos, int color)
 {
 
-    if(xpos<0 || ypos<0 || xpos>9||ypos>9)
+    if(xpos<0 || ypos<0 || xpos>SIZE||ypos>SIZE)
     {
         printf("\e[91msomething went wrong\e[0m\n");
         return;
@@ -209,7 +209,6 @@ int blockToField(int x, int y, int block, int col)
             r1 = field[x][y][4] == true || field[x][y+1][4] == true || field[x][y-1][4] == true;
             r2 = field[x+1][y][4] == true || field[x+1][y+1][4] == true || field[x+1][y-1][4] == true;
             r3 = field[x-1][y][4] == true || field[x-1][y+1][4] == true || field[x-1][y-1][4] == true;
-            printf("r1: %d, r2: %d, r3: %d\n",field[x][y][4],field[x][y+1][4], field[x][y+2][4]);
             if(r1 || r2 || r3)
             {
                 return 4;
@@ -516,15 +515,48 @@ int canPlace(int shape)
 void renderBoard()
 {
     clearScreen();
-    printf("  ");
+    printf("\n");
+    printf("   ");
+    if(SIZE>=10)
+    {
+        printf(" ");
+    }
     for(int i = 0; i<SIZE; i++)
     {
-        printf(" %d ",i);
+
+        if(DOUBLEINT ==1 && SIZE>10)
+        {
+            printf(" %02d",i);
+        }
+        else{
+            if(i/10 != 0)
+            {
+                printf(" %d",i);
+            }
+            else
+            {
+                printf(" %d ",i);
+            }
+        }
     }
+
     printf("\n");
     for(int i = 0; i<SIZE; i++)
     {
-        printf("%d ",i);
+        if(DOUBLEINT == 1&&SIZE>10)
+        {
+            printf(" %02d ",i);
+        }
+        else{
+            if(SIZE >=10 && i/10 == 0)
+            {
+                printf("  %d ",i);
+            }
+            else
+            {
+                printf(" %d ",i);
+            }
+        }
         for(int j = 0; j<SIZE; j++)
         {
             renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j));
@@ -538,15 +570,48 @@ void renderBoard()
 void renderBoardHead()
 {
     clearScreen();
-    printf("  ");
+    printf("\n");
+    printf("   ");
+    if(SIZE>=10)
+    {
+        printf(" ");
+    }
     for(int i = 0; i<SIZE; i++)
     {
-        printf(" %d ",i);
+
+        if(DOUBLEINT ==1 && SIZE>10)
+        {
+            printf(" %02d",i);
+        }
+        else{
+            if(i/10 != 0)
+            {
+                printf(" %d",i);
+            }
+            else
+            {
+                printf(" %d ",i);
+            }
+        }
     }
+
     printf("\n");
     for(int i = 0; i<SIZE; i++)
     {
-        printf("%d ",i);
+        if(DOUBLEINT == 1&&SIZE>10)
+        {
+            printf(" %02d ",i);
+        }
+        else{
+            if(SIZE >=10 && i/10 == 0)
+            {
+                printf("  %d ",i);
+            }
+            else
+            {
+                printf(" %d ",i);
+            }
+        }
         for(int j = 0; j<SIZE; j++)
         {
             renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],field[i][j][3]);

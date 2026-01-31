@@ -165,23 +165,113 @@ int main()
         }
         if(xtmp == '\n')
         {
-            printf("To select coordinates, enter the row value and column value like this: 35 to put at row 3 and column 5. Use 'h' to get a hint.\n");
+            if(NORM_COORD ==0)
+            {
+                if(DOUBLEINT == 1 && SIZE > 10)
+                    printf("To select coordinates, enter the row value and column value like this: 0305 to put at row 3 and column 5. Or 1001 to put at row 10 and column 1 Use 'h' to get a hint.\n");
+                else if(DOUBLEINT == 1)
+                    printf("To select coordinates, enter the row value and column value like this: 35 to put at row 3 and column 5. Use 'h' to get a hint.\n");
+                else
+                {
+                    printf("To select coordinates, enter the row value and column value like this: 3,5 to put at row 3 and column 5. Use 'h' to get a hint.\n");
+                }
+            }
+            else
+            {
+                if(DOUBLEINT == 1 && SIZE > 10)
+                    printf("To select coordinates, enter the row value and column value like this: 0305 to put at column 3 and row 5. Or 1001 to put at column 10 and row 1 Use 'h' to get a hint.\n");
+                else if(DOUBLEINT == 1)
+                    printf("To select coordinates, enter the row value and column value like this: 35 to put at column 3 and row 5. Use 'h' to get a hint.\n");
+                else
+                {
+                    printf("To select coordinates, enter the row value and column value like this: 3,5 to put at column 3 and row 5. Use 'h' to get a hint.\n");
+                }
+            }
             goto whilestart;
         }
-        char ytmp = getchar();
-        cleanChar();
+        char x2tmp = getchar();
+        if(x2tmp == '\n')
+        {
+            printf("incomplete coordinates\n");
+            goto endhere;
+        }
+        if(x2tmp == ','&&DOUBLEINT != 1)
+        {
+            if(SIZE>10)
+            {
+                x2tmp = xtmp;
+                xtmp = '0';
+            }
+        }
+        if(x2tmp == ',' && DOUBLEINT == 1){
+            printf("incorrect coordinate formatting.");
+            cleanChar();
+            goto endhere;
+        }
         int y = 0;
         int x = 0;
-        if(NORM_COORD==0)
+        if(SIZE<=10 && DOUBLEINT == 1)
         {
-            y = charEater(ytmp);
-            x = charEater(xtmp);
+            cleanChar();
+            if(NORM_COORD != 0)
+            {
+                x = charEater(x2tmp);
+                y = charEater(xtmp);
+            }
+            else
+            {
+                y = charEater(x2tmp);
+                x = charEater(xtmp);
+            }
+            goto placetime;
+        }
+        char ytmp = getchar();
+        if(ytmp == '\n')
+        {
+            printf("incomplete coordinates\n");
+            goto endhere;
+        }
+        if(SIZE<=10)
+        {
+            cleanChar();
+            if(NORM_COORD != 0)
+            {
+                x = charEater(ytmp);
+                y = charEater(xtmp);
+            }
+            else
+            {
+                y = charEater(ytmp);
+                x = charEater(xtmp);
+            }
+            goto placetime;
+        }
+        char y2tmp = getchar();
+        if(y2tmp == '\n')
+        {
+            if(DOUBLEINT == 1)
+            {
+                    printf("incomplete coordinates\n");
+                    goto endhere;
+            }
+                y2tmp = ytmp;
+                ytmp = '0';
         }
         else
         {
-            y = charEater(xtmp);
-            x = charEater(ytmp);
+            cleanChar();
         }
+        if(NORM_COORD==0)
+        {
+                y = charEater(ytmp)*10 + charEater(y2tmp);
+                x = charEater(xtmp)*10 + charEater(x2tmp);
+        }
+        else
+        {
+                y = charEater(xtmp)*10 + charEater(x2tmp);
+                x = charEater(ytmp)*10 + charEater(y2tmp);
+        }
+        placetime:
         int l = blockToField(x,y,c_block,c_col);
         if(l == 1)
         {
@@ -204,6 +294,7 @@ int main()
             renderBoard();
 
         }
+        endhere:
         if(isFull())
         {
             printf("Congradulations! You win!\n"
@@ -227,7 +318,7 @@ int main()
                 cleanChar();
             }
         }
-    }
 
+    }
     return 0;
 }
