@@ -10,7 +10,7 @@
 #define SUBDIV 3 //don't make it zero
 
 //random advanced settings:
-#define NORM_COORD 1
+#define NORM_COORD 0
 #define DOUBLEINT 1
 #define WAITTIME 500
 
@@ -20,11 +20,11 @@
 //color stuff
 #define TEXTCOL 0,0,0
 
-#define SMALLOFF 20
-#define BIGOFF 50
-#define BASECOL 100
+#define SMALLOFF 10
+#define BIGOFF 30
+#define BASECOL 70
 //these are the dangerous ones to mess with:
-#define RMOD 0
+#define RMOD 10
 #define GMOD 0
 #define BMOD 0
 #define MODBLOCK false
@@ -47,13 +47,13 @@
 #define BACKUP 100,100,100
 #define COLNUM 12
 #define COLORS {{BACKUP},{ONE},{TWO},{THREE},{FOUR},{FIVE},{SIX},{SEVEN},{EIGHT},{NINE},{TEN},{ELEVEN},{TWELVE}}*/
-#define COLORS {{100,100,100},{100,255,174},{255,100,174},{255,174,100},{100,174,255},{174,100,255},{174,255,100}}
+#define COLORS {{100, 100, 100},{78, 255, 70},{75, 156, 75},{143, 255, 94},{191, 255, 163},{77, 186, 70},{204, 255, 181}}
 #define COLNUM 6 //does not include backup
 
 
 
 //block stuff
-#define BLOCKS {1,2,3,4,5,0,6}
+#define BLOCKS {0,1,2,3,4,5,6}
 #define BLOCKNUM 7 //these HAVE to match!!!
 /*
 0: square

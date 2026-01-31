@@ -92,6 +92,17 @@ int main()
     while(keepgo)
     {
         whilestart:
+        if(CLEAR==1)
+        {
+            clearFull();
+            if(!started&&isEmpty())
+            {
+                printf("Congradulations! You win!\n"
+                "You used %d hints, placed %d blocks, and used %d reloads\n",hintCount,blockCount,reloadCount
+                );
+                goto playagain;
+            }
+        }
         if(canPlace(c_block) == -1)
         {
             if(RELOAD)
@@ -104,14 +115,11 @@ int main()
                 }
                 else
                 {
+                    cleanChar();
                     reloadCount++;
                     c_block = randombytes_uniform(BLOCKNUM);
                     c_col = randombytes_uniform(COLNUM)+1;
                     renderBoard();
-                    if(tmp != '\n')
-                    {
-                        cleanChar();
-                    }
                     goto whilestart;
                 }
             }
@@ -120,18 +128,11 @@ int main()
                 lost:
                 printf("Oh no! You loose!\n"
                     "You used %d hints, placed %d blocks, used %d reloads, and covered %d squares.\n",hintCount,blockCount,reloadCount,fullCount);
-                cleanChar();
-                goto playagain;
-            }
-        }
-        if(CLEAR==1)
-        {
-            clearFull();
-            if(!started&&isEmpty())
-            {
-                printf("Congradulations! You win!\n"
-                "You used %d hints, placed %d blocks, and used %d reloads\n",hintCount,blockCount,reloadCount
-                );
+                char tmp = getchar();
+                if(tmp != '\n')
+                {
+                    cleanChar();
+                }
                 goto playagain;
             }
         }
@@ -314,7 +315,7 @@ int main()
                 blockCount = 0;
                 hintCount = 0;
                 init();
-                renderBoard();
+                renderBoardHead();
                 cleanChar();
             }
         }
