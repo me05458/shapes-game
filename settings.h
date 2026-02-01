@@ -21,9 +21,9 @@
 //color stuff
 #define TEXTCOL 0,0,0
 
-#define SMALLOFF 10
-#define BIGOFF 30
-#define BASECOL 70
+#define SMALLOFF 20
+#define BIGOFF 50
+#define BASECOL 100
 //these are the dangerous ones to mess with:
 #define RMOD 10
 #define GMOD 0
