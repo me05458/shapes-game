@@ -13,6 +13,7 @@
 #define NORM_COORD 0
 #define DOUBLEINT 1
 #define WAITTIME 500
+#define ANIMATE 0
 
 //will there be clear()? 1 recommended for regular gameplay.
 #define USE_SYS 1

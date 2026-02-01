@@ -94,8 +94,9 @@ void changeColor(int xpos, int ypos, int color)
         field[xpos][ypos][0]=col+rmod;
         field[xpos][ypos][1]=col+gmod;
         field[xpos][ypos][2]=col+bmod;
+        return;
     }
-    if(color<0 || color >COLNUM)
+    else if(color<0 || color >COLNUM)
     {
         color = 0;
     }
@@ -265,6 +266,7 @@ bool isEmpty()
 
 void clearFull()
 {
+    printf("\e[?25l");
     //rows:
     int ri[SIZE];
     int rinum = 0;
@@ -306,67 +308,139 @@ void clearFull()
     }
     if(rjnum != 0 || rinum !=0)
     {
+        if(ANIMATE == 0)
+        {
 
-        for(int i = 0; i<rinum; i++)
-        {
-            for(int j = 0; j<SIZE; j++)
+            for(int i = 0; i<rinum; i++)
             {
-                int q = ri[i];
-                field[q][j][4] = false;
-                field[q][j][3] = true;
-            }
-        }
-        for(int j = 0; j<rjnum; j++)
-        {
-            for(int i = 0; i<SIZE; i++)
-            {
-                int q = rj[j];
-                if(field[i][q][4] == true)
+                for(int j = 0; j<SIZE; j++)
                 {
-                    field[i][q][3] = true;
-                    field[i][q][4] = false;
+                    int q = ri[i];
+                    field[q][j][4] = false;
+                    field[q][j][3] = true;
                 }
             }
-        }
-        field[lastPlacedx][lastPlacedy][3] = true;
-        renderBoardHead();
-        waitMS(WAITTIME);
-        bool lastImpacted;
-        for(int i = 0; i<rinum; i++)
-        {
-            for(int j = 0; j<SIZE; j++)
+            for(int j = 0; j<rjnum; j++)
             {
-                int q = ri[i];
-                changeColor(q,j,-1);
-                field[q][j][3] = false;
-                if(q == lastPlacedx && j == lastPlacedy)
+                for(int i = 0; i<SIZE; i++)
                 {
-                    lastImpacted = true;
+                    int q = rj[j];
+                    if(field[i][q][4] == true)
+                    {
+                        field[i][q][3] = true;
+                        field[i][q][4] = false;
+                    }
                 }
             }
-        }
-        for(int j = 0; j<rjnum; j++)
-        {
-            for(int i = 0; i<SIZE; i++)
-            {
-                int q = rj[j];
-                changeColor(i,q,-1);
-                field[i][q][3] = false;
-                if(q == lastPlacedy && i == lastPlacedx)
-                {
-                    lastImpacted = true;
-                }
-            }
-        }
-        field[lastPlacedx][lastPlacedy][3] = false;
-        if(lastImpacted){
+
+            field[lastPlacedx][lastPlacedy][3] = true;
             renderBoardHead();
+
+            waitMS(WAITTIME);
+
+            bool lastImpacted;
+            for(int i = 0; i<rinum; i++)
+            {
+                for(int j = 0; j<SIZE; j++)
+                {
+                    int q = ri[i];
+                    changeColor(q,j,-1);
+                    field[q][j][3] = false;
+                    if(q == lastPlacedx && j == lastPlacedy)
+                    {
+                        lastImpacted = true;
+                    }
+                }
+            }
+            for(int j = 0; j<rjnum; j++)
+            {
+                for(int i = 0; i<SIZE; i++)
+                {
+                    int q = rj[j];
+                    changeColor(i,q,-1);
+                    field[i][q][3] = false;
+                    if(q == lastPlacedy && i == lastPlacedx)
+                    {
+                        lastImpacted = true;
+                    }
+                }
+            }
+
+            field[lastPlacedx][lastPlacedy][3] = false;
+            if(lastImpacted){
+                renderBoardHead();
+            }
+            else
+            {
+                renderBoard();
+            }
+
         }
         else
         {
-            renderBoard();
+            bool lastImpacted = false;
+            bool changed = false;
+            for(int j = 0; j<SIZE; j++)
+            {
+                for(int i = 0; i<rinum; i++)
+                {
+                    int q = ri[i];
+                    field[q][j][4] = false;
+                    field[q][j][3] = false;
+                    changeColor(q,j,-1);
+                    if(q == lastPlacedx && j == lastPlacedy)
+                    {
+                        lastImpacted = true;
+                    }
+                }
+                if(rinum >0)
+                {
+                    waitMS(WAITTIME/SIZE);
+                    if(lastImpacted){
+                        renderBoardHead();
+                    }
+                    else
+                    {
+                        renderBoard();
+                    }
+                }
+            }
+            for(int i = 0; i<SIZE; i++)
+            {
+                changed = false;
+                for(int j = 0; j<rjnum; j++)
+                {
+                    int q = rj[j];
+                    if(q == lastPlacedy && i == lastPlacedx)
+                    {
+                        lastImpacted = true;
+                    }
+                    if(field[i][q][4] == true)
+                    {
+
+                        field[i][q][3] = false;
+                        field[i][q][4] = false;
+                        changeColor(i,q,-1);
+                        changed = true;
+
+                    }
+                }
+                if(changed)
+                {
+                    waitMS(WAITTIME/SIZE);
+                    if(lastImpacted){
+                        renderBoardHead();
+                    }
+                    else
+                    {
+                        renderBoard();
+                    }
+                }
+            }
         }
     }
+    printf("\e[?25h");
+
 }
 
 void waitMS(int ms) //this is such a funny way of sleeping this is what I shall do.

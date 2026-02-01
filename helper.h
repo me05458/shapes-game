@@ -27,3 +27,12 @@ void waitMS(int ms);
 void clearFull();
 void renderBoardHead();
 #endif
+
+
+//for ref
+/*printf("\e[?25lcat:");
+char tmp = getchar();
+printf("\e[?25hcaaat:");
+tmp = getchar();
+return 0;
+*/

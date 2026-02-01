@@ -36,6 +36,7 @@ For example, if you want to change the RELOAD definition, change `#define RELOAD
 - `WAITTIME`: this is the amount (in ms) that the stars will falsh for when a line is cleared (assuming CLEAR is enabled).
 - `NORM_COORD`: if this is 1, enter coordinates in terms of <col>/<row>, if this is 0 enter them <row>/<col>
 - `DOUBLEINT`: if this is 0, coordinates are to be entered with a comma between them (4,5). If this is 1, for SIZE <= 10, enter coordinates in format 01. For SIZE > 10 eter coordinates in the format 0102.
+- `ANIMATE`: if this is 0, dissappearing rows will have all *s and vanish. If this is 1, vanishing animation will be played.
 
 ## color stuff:
 It is possible to mess the color stuff up so badly it breaks the game. If this is the case, the game will warn you and you can use the settings application to find out where the issue is.  
@@ -102,3 +103,4 @@ xxx
 - changeColorRGB() and other RGB functions might not protect against unreasonable values of r,g,b
 - Messing with the settings.h file seems like it could pose an issue
 - Some iniefficiency/redundancy in rendering
+- animation causes flickering

@@ -111,11 +111,15 @@ int main()
                 char tmp = getchar();
                 if(tmp == 'n' || tmp == 'N')
                 {
+                    cleanChar();
                     goto lost;
                 }
                 else
                 {
-                    cleanChar();
+                    if(tmp != '\n')
+                    {
+                        cleanChar();
+                    }
                     reloadCount++;
                     c_block = randombytes_uniform(BLOCKNUM);
                     c_col = randombytes_uniform(COLNUM)+1;
@@ -128,10 +132,11 @@ int main()
                 lost:
                 printf("Oh no! You loose!\n"
                     "You used %d hints, placed %d blocks, used %d reloads, and covered %d squares.\n",hintCount,blockCount,reloadCount,fullCount);
-                char tmp = getchar();
-                if(tmp != '\n')
+                //char tmp = getchar();
+               // if(tmp != '\n')
                 {
-                    cleanChar();
+                    //printf("aha");
+                    //cleanChar();
                 }
                 goto playagain;
             }
@@ -316,7 +321,10 @@ int main()
                 hintCount = 0;
                 init();
                 renderBoardHead();
-                cleanChar();
+                if(tmp !='\n')
+                {
+                    cleanChar();
+                }
             }
         }
 
