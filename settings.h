@@ -10,7 +10,7 @@
 #define SUBDIV 3 //don't make it zero
 
 //random advanced settings:
-#define NORM_COORD 0
+#define NORM_COORD 1
 #define DOUBLEINT 1
 #define WAITTIME 500
 #define ANIMATE 0
