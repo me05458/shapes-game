@@ -163,6 +163,31 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             printf("   ");
             setCol(-2);
             break;
+        case 7:
+            setCol(-1);
+            printf("   ");
+            setColRGB(r,g,b);
+            printf("   ");
+            setCol(-1);
+            printf("   \n");
+            setColRGB(r,g,b);
+            printf("   ");
+            setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
+            if(head)
+            {
+                printf(" * ");
+            }
+            else
+                printf("   ");
+            setColRGB(r,g,b);
+            printf("   ");
+            setCol(-2);
+            printf("   ");
+            setColRGB(r,g,b);
+            printf("   ");
+            setCol(-1);
+            printf("   \n");
+            break;
         case 1:
             setColRGB(r,g,b);
             printf("   ");

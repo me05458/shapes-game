@@ -223,6 +223,29 @@ int blockToField(int x, int y, int block, int col)
                 }
             }
             break;
+        case 7:
+            if(y<1||y>=SIZE-1 || x<1||x>=SIZE-1)
+            {
+                return 2;
+            }
+            r1 = field[x][y][4] == true || field[x][y+1][4] == true || field[x][y-1][4] == true;
+            r2 = field[x+1][y][4] == true;
+            r3 = field[x-1][y][4] == true;
+            if(r1 || r2 || r3)
+            {
+                return 4;
+            }
+            changeColor(x,y+1,col);
+            field[x][y+1][4]==true;
+
+            changeColor(x,y-1,col);
+            field[x][y-1][4]==true;
+
+            changeColor(x+1,y,col);
+            field[x+1][y][4]==true;
+            changeColor(x-1,y,col);
+            field[x-1][y][4]==true;
+            break;
         default:
             return 3;
 
@@ -573,6 +596,24 @@ int canPlace(int shape)
                     r1 = field[i][j][4] == false && field[i][j+1][4] == false && field[i][j+2][4] == false;
                     r2 = field[i+1][j][4] == false && field[i+1][j+1][4] == false && field[i+1][j+2][4] == false;
                     r3 = field[i+2][j][4] == false && field[i+2][j+1][4] == false && field[i+2][j+2][4] == false;
+                    if(r1&&r2&&r3)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        case 7:
+            r1 = false;
+            r2 = false;
+            r3 = false;
+            for(int i = 0; i<SIZE-2;i++)
+            {
+                for(int j = 0; j<SIZE-2; j++)
+                {
+                    r1 = field[i+1][j+1][4] == false && field[i][j+1][4] == false;
+                    r2 = field[i+2][j+1][4] == false && field[i+1][j][4] == false;
+                    r3 = field[i+1][j+2][4] == false;
                     if(r1&&r2&&r3)
                     {
                         return i;

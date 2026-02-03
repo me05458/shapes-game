@@ -10,7 +10,7 @@
 #define SUBDIV 3 //don't make it zero
 
 //random advanced settings:
-#define NORM_COORD 1
+#define NORM_COORD 0
 #define DOUBLEINT 1
 #define WAITTIME 500
 #define ANIMATE 0
@@ -54,8 +54,8 @@
 
 
 //block stuff
-#define BLOCKS {0,1,2,3,4,5,6}
-#define BLOCKNUM 7 //these HAVE to match!!!
+#define BLOCKS {0,1,2,7}
+#define BLOCKNUM 4 //these HAVE to match!!!
 /*
 0: square
 X
@@ -83,6 +83,11 @@ x
 xxx
 xxx
 xxx
+
+7:
+ x
+xxx
+ x
 */
 
 //ignore this
