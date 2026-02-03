@@ -236,15 +236,15 @@ int blockToField(int x, int y, int block, int col)
                 return 4;
             }
             changeColor(x,y+1,col);
-            field[x][y+1][4]==true;
+            field[x][y+1][4]=true;
 
             changeColor(x,y-1,col);
-            field[x][y-1][4]==true;
+            field[x][y-1][4]=true;
 
             changeColor(x+1,y,col);
-            field[x+1][y][4]==true;
+            field[x+1][y][4]=true;
             changeColor(x-1,y,col);
-            field[x-1][y][4]==true;
+            field[x-1][y][4]=true;
             break;
         default:
             return 3;
