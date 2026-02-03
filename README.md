@@ -95,6 +95,12 @@ xxx
 xxx
 xxx
 ```
+7. cross thing
+```
+ x
+xxx
+ x
+```
 - `BLOCKS` is defined a bit like colors, in the form `{#,#,#}` where the #s are the numbers of blocks described above you wish to use.
 - `BLOCKNUM` works exactly like colornum, except for types of block.
 
