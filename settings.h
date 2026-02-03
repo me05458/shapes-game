@@ -19,11 +19,11 @@
 #define USE_SYS 1
 
 //color stuff
-#define TEXTCOL 0,0,0
+#define TEXTCOL 225,225,225
 
 #define SMALLOFF 20
 #define BIGOFF 50
-#define BASECOL 100
+#define BASECOL 225
 //these are the dangerous ones to mess with:
 #define RMOD 10
 #define GMOD 0
@@ -48,8 +48,8 @@
 #define BACKUP 100,100,100
 #define COLNUM 12
 #define COLORS {{BACKUP},{ONE},{TWO},{THREE},{FOUR},{FIVE},{SIX},{SEVEN},{EIGHT},{NINE},{TEN},{ELEVEN},{TWELVE}}*/
-#define COLORS {{100, 100, 100},{78, 255, 70},{75, 156, 75},{143, 255, 94},{191, 255, 163},{77, 186, 70},{204, 255, 181}}
-#define COLNUM 6 //does not include backup
+#define COLORS {{70,70,70},{140, 70, 137},{77, 140, 70},{70, 78, 140},{140, 70, 71}}
+#define COLNUM 4 //does not include backup
 
 
 
