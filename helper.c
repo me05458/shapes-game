@@ -246,6 +246,26 @@ int blockToField(int x, int y, int block, int col)
             changeColor(x-1,y,col);
             field[x-1][y][4]=true;
             break;
+        case 8:
+            if(y>=SIZE-2)
+            {
+                return 2;
+            }
+            if(x>=SIZE-1)
+            {
+                return 2;
+            }
+            if(field[x][y][4] == true || field[x][y+1][4] == true || field[x][y+2][4] == true || field[x+1][y][4] == true)
+            {
+                return 4;
+            }
+            changeColor(x,y+1,col);
+            changeColor(x,y+2,col);
+            changeColor(x+1,y,col);
+            field[x][y+1][4] = true;
+            field[x][y+2][4] = true;
+            field[x+1][y][4] = true;
+            break;
         default:
             return 3;
 
@@ -474,7 +494,7 @@ void waitMS(int ms) //this is such a funny way of sleeping this is what I shall 
     nanosleep(&ts, NULL);
 }
 int canPlace(int shape)
-{//SHAPE
+{//SHAPES
     switch(shape){
         case(0):
             for(int i = 0; i<SIZE; i++)
@@ -615,6 +635,18 @@ int canPlace(int shape)
                     r2 = field[i+2][j+1][4] == false && field[i+1][j][4] == false;
                     r3 = field[i+1][j+2][4] == false;
                     if(r1&&r2&&r3)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        case 8:
+            for(int i =0; i<SIZE-1; i++)
+            {
+                for(int j = 0; j<SIZE-2; j++)
+                {
+                    if(field[i][j][4] == false && field[i+1][j][4] == false && field[i][j+1][4] == false && field[i][j+2][4]==false)
                     {
                         return i;
                     }
