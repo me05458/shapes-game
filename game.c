@@ -7,19 +7,9 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdbool.h>
-
-//externs are in helper
-extern int field[SIZE][SIZE][5]; //field
-extern int blocks[BLOCKNUM];
-extern int colors[COLNUM+1][3];
-extern int lastPlacedx;
-extern int lastPlacedy;
-extern int c_block;
-extern int c_col;
-extern bool started;
+#include "vars.h"
 int reloadCount = 0; //how many times we reloaded
 int hintCount = 0;//hints used
-extern int lineCount;
 int blockCount = 0; //blocks placed
 
 void debug() //just print out full or not for debuggery

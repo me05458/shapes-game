@@ -3,6 +3,7 @@
 #define FALSE 0
 #define TRUE 1
 #include <stdbool.h>
+#include "vars.h"
 
 //it turns out everything is in here :P
 

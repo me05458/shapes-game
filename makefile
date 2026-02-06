@@ -7,6 +7,7 @@ SETTINGS_NONSENSE = $(later)
 OBJS = \
        shapes.o \
        helper.o\
+       vars.o\
 
 GAME_OBJS =\
 	game.o
@@ -27,9 +28,9 @@ $(LINK_TARGET): $(OBJS) $(SETTINGS_OBJS) $(GAME_OBJS) settings.h makefile
 %.o : %.c settings.h
 	gcc -o $@ -c $<
 
-game.o: settings.h shapes.h helper.h
-check.o: settings.h helper.h
-shapes.o: settings.h
+game.o: settings.h shapes.h helper.h vars.h
+check.o: settings.h helper.h vars.h
+shapes.o: settings.h vars.h
 
 
 clean:

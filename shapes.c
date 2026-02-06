@@ -3,7 +3,6 @@
 #include "shapes.h"
 #include <stdbool.h>
 
-extern int colors[COLNUM+1][3]; //see helper (I think)
 void setColRGB(int r, int g, int b) //your friendly formatting function
 {
     //this comes first: clear w/ newline or clear w/o

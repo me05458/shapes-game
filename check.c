@@ -6,12 +6,6 @@
 #include "helper.h"
 #include <stdbool.h>
 //this helps us see if the settings are good.
-//these things are described at some other point (in helper?)
-extern int field[SIZE][SIZE][5]; //field
-extern int blocks[BLOCKNUM];
-extern int colors[COLNUM+1][3];
-extern int lastPlacedx;
-extern int lastPlacedy;
 //this makes the color output stuff more
 bool verbose = false; //this should start as FALSE
 void printCols() //this just runs through all the colors
@@ -282,7 +276,7 @@ int main() //we're gonna run through the dialogue here
                     }
                 }
                 renderBoard();
-                //cleanChar();
+                cleanChar();
                 break;
             case '5':
                 clearScreen();

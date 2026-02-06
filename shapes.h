@@ -1,6 +1,7 @@
 #ifndef SHAPES_H
 #define SHAPES_H
 #include <stdbool.h>
+#include "vars.h"
 
 //draws a shape (includes newlines)
 void renderShapeRGB(int type, int r, int g, int b, bool head);
