@@ -7,6 +7,8 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdbool.h>
+
+//externs are in helper
 extern int field[SIZE][SIZE][5]; //field
 extern int blocks[BLOCKNUM];
 extern int colors[COLNUM+1][3];
@@ -15,12 +17,14 @@ extern int lastPlacedy;
 extern int c_block;
 extern int c_col;
 extern bool started;
-int reloadCount = 0;
-int hintCount = 0;
-extern int fullCount;
-int blockCount = 0;
+int reloadCount = 0; //how many times we reloaded
+int hintCount = 0;//hints used
+extern int lineCount;
+int blockCount = 0; //blocks placed
 
-void debug()
+void debug() //just print out full or not for debuggery
+//I left it in because why not?
+//easter egg ig
 {
     for(int i = 0; i<SIZE; i++)
     {
@@ -35,10 +39,11 @@ void debug()
 int main()
 {
     //this is some initialization nonsense
+    //are the colors right?
     bool fieldCol = BASECOL+RMOD-SMALLOFF-BIGOFF<0||BASECOL+BMOD-SMALLOFF-BIGOFF<0||BASECOL+GMOD-SMALLOFF-BIGOFF<0;
     bool fieldCol2 = BASECOL+RMOD>255||BASECOL+BMOD>255||BASECOL+GMOD>255;
     bool otherCol = false;
-    if(MODBLOCK)
+    if(MODBLOCK) //check mods if that's a thing
     {
         for(int i = 0; i<COLNUM+1; i++)
         {
@@ -64,48 +69,46 @@ int main()
             }
         }
     }
-    if(fieldCol || otherCol || fieldCol2)
+    if(fieldCol || otherCol || fieldCol2) //if colors bad
     {
         printf("\033[91mALERT! Color values have not passed checksums. In order to propperly view board, it is recommended to modify color settings. Running ./settings can help diagnose the problem.\033[0m\n");
-        printf("Proceed anyway? (Y/N)\n");
+        printf("Proceed anyway? (Y/N)\n"); //warn but can keep going
         char tmp = getchar();
         if(tmp == 'n' || tmp =='N'|| tmp == '\n')
         {
-            return 0;
+            return 0; //default is to continue
         }
         cleanChar();
     }
-    int keepgo = 1;
+    int keepgo = 1; //I don't know if this matters?
     clearScreen();
-    int a = init();
+    int a = init(); //check if library works?
     if(a != 0)
     {
         return a;
     }
-    /*printf("enter char: ");
-    char input;
-    input = getchar();
-    cleanChar();*/
+    //generate first block
     c_block = blocks[randombytes_uniform(BLOCKNUM)];
     c_col = randombytes_uniform(COLNUM)+1;
-    renderBoard();
-    while(keepgo)
+    renderBoard(); //first render
+    while(keepgo) //I don't know if this matters?
     {
         whilestart:
-        if(CLEAR==1)
+        if(CLEAR==1) //if clear lines...
         {
             clearFull();
             if(!started&&isEmpty())
             {
+                //you win when the thing's empty, except it's empty at the start, so ignore that case!
                 printf("Congradulations! You win!\n"
-                "You used %d hints, placed %d blocks, and used %d reloads\n",hintCount,blockCount,reloadCount
+                "You used %d hints, placed %d blocks, and used %d reloads, and cleared %d lines\n",hintCount,blockCount,reloadCount,lineCount
                 );
-                goto playagain;
+                goto playagain; //ask to play again (see bellow)
             }
         }
-        if(canPlace(c_block) == -1)
+        if(canPlace(c_block) == -1) //if can't place...
         {
-            if(RELOAD)
+            if(RELOAD) //if allowed to, ask to reload
             {
                 printf("Nowhere to place this piece! Get a new one? (Y/n)\n");
                 char tmp = getchar();
@@ -114,41 +117,36 @@ int main()
                     cleanChar();
                     goto lost;
                 }
-                else
+                else //default = new.
                 {
                     if(tmp != '\n')
                     {
                         cleanChar();
                     }
-                    reloadCount++;
+                    reloadCount++; //oooo reloads
+                    //just make a new one
                     c_block = randombytes_uniform(BLOCKNUM);
                     c_col = randombytes_uniform(COLNUM)+1;
                     renderBoard();
-                    goto whilestart;
+                    goto whilestart; //start at start
                 }
             }
-            else
+            else //if no reloads, loose.
             {
-                lost:
+                lost: //go here to play lost sequence.
                 printf("Oh no! You loose!\n"
-                    "You used %d hints, placed %d blocks, used %d reloads, and covered %d squares.\n",hintCount,blockCount,reloadCount,fullCount);
-                //char tmp = getchar();
-               // if(tmp != '\n')
-                {
-                    //printf("aha");
-                    //cleanChar();
-                }
-                goto playagain;
+                    "You used %d hints, placed %d blocks, used %d reloads, and cleared %d lines.\n",hintCount,blockCount,reloadCount,lineCount);
+                goto playagain; //play again.
             }
         }
-        printf("enter coordinates to place: ");
-        char xtmp = getchar();
-        if(xtmp == 'q' || xtmp=='Q')
+        printf("enter coordinates to place: "); //okay let's place one
+        char xtmp = getchar(); //first only the first digit.
+        if(xtmp == 'q' || xtmp=='Q') //oh, quit
         {
             keepgo=0;
             break;
         }
-        if(xtmp == 'h' || xtmp == 'H')
+        if(xtmp == 'h' || xtmp == 'H') //hint
         {
             cleanChar();
             int q = canPlace(c_block);
@@ -163,13 +161,13 @@ int main()
                 goto whilestart;
             }
         }
-        if(xtmp == 'D' || xtmp == 'd')
+        if(xtmp == 'D' || xtmp == 'd') //debug
         {
             cleanChar();
             debug();
             goto whilestart;
         }
-        if(xtmp == '\n')
+        if(xtmp == '\n') //tell person how to play, depending on the doubleint and coordinate types.
         {
             if(NORM_COORD ==0)
             {
@@ -193,33 +191,33 @@ int main()
                     printf("To select coordinates, enter the row value and column value like this: 3,5 to put at column 3 and row 5. Use 'h' to get a hint.\n");
                 }
             }
-            goto whilestart;
+            goto whilestart; //go to begining
         }
-        char x2tmp = getchar();
-        if(x2tmp == '\n')
+        char x2tmp = getchar(); //okay, next character
+        if(x2tmp == '\n') //clearly not enough numbers
         {
             printf("incomplete coordinates\n");
-            goto endhere;
+            goto endhere; //to end
         }
-        if(x2tmp == ','&&DOUBLEINT != 1)
+        if(x2tmp == ','&&DOUBLEINT != 1) //comma coordinates used, all good.
         {
-            if(SIZE>10)
+            if(SIZE>10) //only single digits used.
             {
                 x2tmp = xtmp;
                 xtmp = '0';
             }
         }
         if(x2tmp == ',' && DOUBLEINT == 1){
-            printf("incorrect coordinate formatting.");
+            printf("incorrect coordinate formatting."); //we're not doing , coordinates
             cleanChar();
             goto endhere;
         }
-        int y = 0;
+        int y = 0; //it's time to start some spot checking.
         int x = 0;
-        if(SIZE<=10 && DOUBLEINT == 1)
+        if(SIZE<=10 && DOUBLEINT == 1) //if less than 10 and no commas
         {
             cleanChar();
-            if(NORM_COORD != 0)
+            if(NORM_COORD != 0) //just which one do you check fist.
             {
                 x = charEater(x2tmp);
                 y = charEater(xtmp);
@@ -229,15 +227,15 @@ int main()
                 y = charEater(x2tmp);
                 x = charEater(xtmp);
             }
-            goto placetime;
+            goto placetime; //place it (see later)
         }
-        char ytmp = getchar();
-        if(ytmp == '\n')
+        char ytmp = getchar(); //okay let's get more things because we need more of them
+        if(ytmp == '\n') //not enough coordinates at this point.
         {
             printf("incomplete coordinates\n");
-            goto endhere;
+            goto endhere; //end
         }
-        if(SIZE<=10)
+        if(SIZE<=10) //okay, we've done a,b with single digits. just set x,y
         {
             cleanChar();
             if(NORM_COORD != 0)
@@ -252,10 +250,10 @@ int main()
             }
             goto placetime;
         }
-        char y2tmp = getchar();
+        char y2tmp = getchar(); //okay, double digits...
         if(y2tmp == '\n')
         {
-            if(DOUBLEINT == 1)
+            if(DOUBLEINT == 1) //we need that second digit!!
             {
                     printf("incomplete coordinates\n");
                     goto endhere;
@@ -263,11 +261,11 @@ int main()
                 y2tmp = ytmp;
                 ytmp = '0';
         }
-        else
+        else //all done :)
         {
             cleanChar();
         }
-        if(NORM_COORD==0)
+        if(NORM_COORD==0) //final coordinate setting
         {
                 y = charEater(ytmp)*10 + charEater(y2tmp);
                 x = charEater(xtmp)*10 + charEater(x2tmp);
@@ -277,50 +275,51 @@ int main()
                 y = charEater(xtmp)*10 + charEater(x2tmp);
                 x = charEater(ytmp)*10 + charEater(y2tmp);
         }
-        placetime:
-        int l = blockToField(x,y,c_block,c_col);
-        if(l == 1)
+        placetime: //time to actually set it
+        int l = blockToField(x,y,c_block,c_col); //try putting it in field
+        if(l == 1) //if invalid coordinates
         {
             printf("\e[91mnot valid coordinates\e[0m\n");
         }
-        else if(l == 2 || l==4)
+        else if(l == 2 || l==4) //if block doesn't fit'
         {
             printf("\e[91mblock doesn't fit here\e[0m\n");
         }
-        else if(l==3)
-        {
+        else if(l==3) //if a bad block (I guess) was done.
+        { //shouldn't happen.'
             printf("\e[91msomething weird happened!\e[0m\n");
         }
-        else
+        else //place.
         {
-            blockCount++;
+            blockCount++; //only now do we increment here.
             c_block = blocks[randombytes_uniform(BLOCKNUM)];
             c_col = randombytes_uniform(COLNUM)+1;
             started = false;
             renderBoard();
 
         }
-        endhere:
-        if(isFull())
+        endhere: //this is the end.
+        if(isFull()) //if filled it all, we won! (only happens in the case where winning via filling is possible)
         {
             printf("Congradulations! You win!\n"
-                "You used %d hints, placed %d blocks, and used %d reloads\n",hintCount,blockCount,reloadCount
+                "You used %d hints, placed %d blocks, used %d reloads, and cleared %d lines\n",hintCount,blockCount,reloadCount, lineCount
             );
-            playagain:
-            printf("Play again? (Y/n)\n");
+            playagain: //play again time
+            printf("Play again? (Y/n)\n"); //default == y
             char tmp = getchar();
-            if(tmp == 'n' || tmp == 'N'||tmp=='q'||tmp=='Q')
+            if(tmp == 'n' || tmp == 'N'||tmp=='q'||tmp=='Q') //quit
             {
                 printf("goodbye!\n");
                 return 0;
             }
             else
             {
+                //reset all the numbers
                 reloadCount = 0;
                 blockCount = 0;
                 hintCount = 0;
-                init();
-                renderBoardHead();
+                init(); //reinitialize
+                renderBoardHead(); //render cleared
                 if(tmp !='\n')
                 {
                     cleanChar();
@@ -329,5 +328,5 @@ int main()
         }
 
     }
-    return 0;
+    return 0; //done
 }

@@ -3,10 +3,10 @@
 #include "shapes.h"
 #include <stdbool.h>
 
-extern int colors[COLNUM+1][3];
+extern int colors[COLNUM+1][3]; //see helper (I think)
 void setColRGB(int r, int g, int b) //your friendly formatting function
 {
-    printf("\033[38;2;%d;%d;%dm",TEXTCOL);
+    //this comes first: clear w/ newline or clear w/o
     if(r == -2)
     {
         printf("\033[0m\n");
@@ -17,37 +17,56 @@ void setColRGB(int r, int g, int b) //your friendly formatting function
         printf("\033[0m");
         return;
     }
-    printf("\033[48;2;%d;%d;%dm",r,g,b);
+    //all of these are checks for incorrect r,g,b s
+    if(r<0)
+        r=0;
+    if(r>225)
+        r=225;
+    if(g<0)
+        g=0;
+    if(g>225)
+        g = 225;
+    if(b<0)
+        g=0;
+    if(b>225)
+        b=0;
+
+    //just escape codes
+    printf("\033[38;2;%d;%d;%dm",TEXTCOL); //text see 38
+    printf("\033[48;2;%d;%d;%dm",r,g,b); //background see 48
 }
 
-void setCol(int color)
+void setCol(int color) //just call that other color function
 {
-    if(color<0)
+    if(color<0) //pass some dummy numbers for other parameters
     {
         setColRGB(color,-3,-3);
         return;
     }
-    if(color >COLNUM)
+    if(color >COLNUM) //color is not a valid one, use default
     {
         color = 0;
     }
+    //pass that color's r,g,b along.
     setColRGB(colors[color][0],colors[color][1],colors[color][2]);
 }
 
-void renderShape(int type, int color, bool head)
+void renderShape(int type, int color, bool head) //calls other function
 {
-    if(color<0 || color >COLNUM)
+    if(color<0 || color >COLNUM) //invalid color, use default
     {
         color = 0;
     }
+    //render shape with RGB
     renderShapeRGB(type,colors[color][0],colors[color][1],colors[color][2],head);
 }
 
-void renderShapeRGB(int type, int r, int g, int b, bool head)
+void renderShapeRGB(int type, int r, int g, int b, bool head) //this actually does shapes
+//head -> render shape with *. This is a bunch of nonsense because of the bad rendering dynamics, I'm gonna refactor it one day.
 { //SHAPES
     setColRGB(r,g,b);
     switch (type) {
-        case -1:
+        case -1: //the dots in the field (no newline)
             if(head)
             {
                 printf(" * ");
@@ -56,9 +75,9 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             {
                 printf("   ");
             }
-            setCol(-1);
+            setCol(-1); //NO NEWLINE
             break;
-        case 0:
+        case 0: //regular dot
             if(head)
             {
                 printf(" * ");
@@ -69,7 +88,7 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             }
             setCol(-2);
             break;
-        case 2:
+        case 2: //xxx
             if(head)
             {
                 printf("   ");
@@ -89,6 +108,8 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             setCol(-2);
             break;
         case 3:
+                // xx
+                // xx
             setColRGB(r,g,b);
             if(head)
             {
@@ -107,7 +128,7 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             printf("   ");
             setCol(-2);
             break;
-        case 4:
+        case 4: //xx
             if(head)
             {
                 printf(" * ");
@@ -120,7 +141,8 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             printf("   ");
             setCol(-2);
             break;
-        case 5:
+        case 5: // x
+                 // x
             if(head)
             {
                 printf(" * ");
@@ -134,13 +156,13 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             printf("   ");
             setCol(-2);
             break;
-        case 6:
+        case 6: //3x3 square
             printf("   ");
             setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
             printf("   ");
             setColRGB(r,g,b);
             printf("   ");
-            setCol(-2);
+            setCol(-2); //linebreak
             setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
             printf("   ");
             setColRGB(r,g,b);
@@ -154,7 +176,7 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             }
             setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
             printf("   ");
-            setCol(-2);
+            setCol(-2); //linebreak
             setColRGB(r,g,b);
             printf("   ");
             setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
@@ -163,7 +185,7 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             printf("   ");
             setCol(-2);
             break;
-        case 7:
+        case 7: //cross
             setCol(-1);
             printf("   ");
             setColRGB(r,g,b);
@@ -188,7 +210,8 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             setCol(-1);
             printf("   \n");
             break;
-        case 8:
+        case 8: // xxx
+                 // x
             if(head)
             {
                 printf(" * ");
@@ -206,7 +229,9 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             printf("   ");
             setCol(-2);
             break;
-        case 1:
+        case 1: //x
+                // x
+                // x
             setColRGB(r,g,b);
             printf("   ");
             setCol(-2);
@@ -223,8 +248,8 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
             setColRGB(r,g,b);
             printf("   ");
             setCol(-2);
-                    break;
-                default:
-                    printf("SOMETHING WENT WRONG OH NO");
+            break;
+            default:
+                printf("SOMETHING WENT WRONG OH NO"); //oh no :(
     }
 }

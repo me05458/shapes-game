@@ -2,8 +2,10 @@
 #define SHAPES_H
 #include <stdbool.h>
 
+//draws a shape (includes newlines)
 void renderShapeRGB(int type, int r, int g, int b, bool head);
-void setColRGB(int r, int g, int b);
 void renderShape(int type, int color, bool head);
+//sets the color of the output.
 void setCol(int color);
+void setColRGB(int r, int g, int b);
 #endif

@@ -106,7 +106,8 @@ xxx
 
 # known issues
 - the `system()` function poses a security vulnerability
-- changeColorRGB() and other RGB functions might not protect against unreasonable values of r,g,b
 - Messing with the settings.h file seems like it could pose an issue
 - Some iniefficiency/redundancy in rendering
 - animation causes flickering
+- the shapes stuff is quite inelegant and needs fixing
+- Settings has some problems with field rendering (you have to press enter on it)

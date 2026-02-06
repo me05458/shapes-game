@@ -8,29 +8,32 @@
 #include <stdbool.h>
 
 int field[SIZE][SIZE][5]; //field
-int blocks[BLOCKNUM] = BLOCKS;
-int colors[COLNUM+1][3] = COLORS;
-int c_block;
-int c_col;
-int lastPlacedx = -1;
+int blocks[BLOCKNUM] = BLOCKS; //array of blocks
+int colors[COLNUM+1][3] = COLORS; //array of colors
+int c_block; //current block (currently dealing with it)
+int c_col; //current color
+int lastPlacedx = -1; //last coordinates (for * rendering)
 int lastPlacedy = -1;
-int fullCount = 0;
-bool started = true;
-void cleanChar()
+int lineCount = 0; //lines filled?
+bool started = true; //just started
+void cleanChar() //classic cleanchar function.
 {
+    //just get all the characters until newline.
     while(getchar() != '\n')
         continue;
 }
 
 void clearScreen()
 {
+    //only clear if using it, mostly for debugging.
     if(USE_SYS == 1)
     {
         system("clear");
     }
 }
 void changeColorRGB(int xpos, int ypos, int r, int g, int b)
-{
+{ //sets an element of field to a color
+    //classic mods
     int rmod = 0;
     int gmod = 0;
     int bmod = 0;
@@ -40,36 +43,36 @@ void changeColorRGB(int xpos, int ypos, int r, int g, int b)
         gmod = GMOD;
         bmod = BMOD;
     }
-    if(xpos<0 || ypos<0 || xpos>SIZE||ypos>SIZE)
+    if(xpos<0 || ypos<0 || xpos>SIZE||ypos>SIZE) //deal with bad sizes
     {
         printf("\e[91msomething went wrong\e[0m\n");
         return;
     }
-    if(xpos%2 == ypos%2)
+    if(xpos%2 == ypos%2) //every other checker
     {
             rmod-=SMALLOFF;
             gmod-=SMALLOFF;
             bmod-=SMALLOFF;
     }
-    if((xpos/SUBDIV)%2 == (ypos/SUBDIV)%2)
+    if((xpos/SUBDIV)%2 == (ypos/SUBDIV)%2) //big sections of color
     {
         rmod-=BIGOFF;
         gmod-=BIGOFF;
         bmod-=BIGOFF;
     }
-    field[xpos][ypos][0]=r+rmod;
+    field[xpos][ypos][0]=r+rmod; //throw these guys in here
     field[xpos][ypos][1]=g+gmod;
     field[xpos][ypos][2]=b+bmod;
 }
 void changeColor(int xpos, int ypos, int color)
-{
+{ //chages color without RGB
 
     if(xpos<0 || ypos<0 || xpos>SIZE||ypos>SIZE)
     {
         printf("\e[91msomething went wrong\e[0m\n");
         return;
     }
-    if(color == -1)
+    if(color == -1) //we're clearing/setting to field color
     {
         int col = BASECOL;
         int rmod = RMOD;
@@ -91,15 +94,16 @@ void changeColor(int xpos, int ypos, int color)
         {
             col = BASECOL;
         }
-        field[xpos][ypos][0]=col+rmod;
+        field[xpos][ypos][0]=col+rmod; //go through and set these guys
         field[xpos][ypos][1]=col+gmod;
         field[xpos][ypos][2]=col+bmod;
         return;
     }
-    else if(color<0 || color >COLNUM)
+    else if(color<0 || color >COLNUM) //after ^ fix bad colors
     {
         color = 0;
     }
+    //just call that other thing.
     changeColorRGB(xpos,ypos,colors[color][0],colors[color][1],colors[color][2]);
 }
 
@@ -109,22 +113,30 @@ int charEater(char c)
     int result =  c - '0'; //the numbers are consecutive so subtract 0
     if(result > 9||result<0) //it's a letter/other character
         return -1;
-    return result;
+    return result; //I <3 this function
 }
-int blockToField(int x, int y, int block, int col)
+int blockToField(int x, int y, int block, int col) //place a block
 { //SHAPES
-    if(x<0 || y<0 || x>=SIZE||y>=SIZE)
+    //returns 1 == x,y not in field
+    //returns 4 == elements of block are occupied
+    //returns 2 == non-x,y blocks not in field (idk why)
+    if(x<0 || y<0 || x>=SIZE||y>=SIZE) //CLEARLY bad x,y
     {
         return 1;
     }
-    if(field[x][y][4]==true)
+    if(field[x][y][4]==true) //CLEARLY full
     {
         return 4;
     }
-    switch(block){
+    switch(block){ //okay, render the blocks.
         case(0):
-            fullCount++;
+            //everything's already fine
             break;
+
+        //each case has the following steps:
+            //check specific x,y bad values
+            //check if specific cells are full
+            //if all good, set color & full
         case(1):
             if(x<1||x>=SIZE-1)
             {
@@ -138,7 +150,6 @@ int blockToField(int x, int y, int block, int col)
             changeColor(x-1,y,col);
             field[x+1][y][4] = true;
             changeColor(x+1,y,col);
-            fullCount += 3;
             break;
         case(2):
             if(y<1||y>=SIZE-1)
@@ -153,7 +164,6 @@ int blockToField(int x, int y, int block, int col)
             field[x][y+1][4] = true;
             changeColor(x,y-1,col);
             changeColor(x,y+1,col);
-            fullCount+=3;
             break;
         case 3:
             if(y>=SIZE-1 || x>=SIZE-1)
@@ -171,7 +181,6 @@ int blockToField(int x, int y, int block, int col)
             field[x][y+1][4] = true;
             field[x][y][4] = true;
             field[x+1][y][4] = true;
-            fullCount+=4;
             break;
         case 4:
             if(y>=SIZE-1)
@@ -184,7 +193,6 @@ int blockToField(int x, int y, int block, int col)
             }
             changeColor(x,y+1,col);
             field[x][y+1][4] = true;
-            fullCount+=2;
             break;
         case 5:
             if(x>=SIZE-1)
@@ -197,13 +205,13 @@ int blockToField(int x, int y, int block, int col)
             }
             changeColor(x+1,y,col);
             field[x+1][y][4]=true;
-            fullCount+=2;
             break;
-        case 6:
+        case 6: //note that this guy sets x,y twice for elegance of code, sorry
             if(y<1||y>=SIZE-1 || x<1||x>=SIZE-1)
             {
                 return 2;
             }
+            //these bools are to make this a little cleaner because these guys have a lot of spots to check for ture:
             bool r1;
             bool r2;
             bool r3;
@@ -228,6 +236,7 @@ int blockToField(int x, int y, int block, int col)
             {
                 return 2;
             }
+            //this uses the bools from above
             r1 = field[x][y][4] == true || field[x][y+1][4] == true || field[x][y-1][4] == true;
             r2 = field[x+1][y][4] == true;
             r3 = field[x-1][y][4] == true;
@@ -266,17 +275,20 @@ int blockToField(int x, int y, int block, int col)
             field[x][y+2][4] = true;
             field[x+1][y][4] = true;
             break;
-        default:
+        default: //abnormal shape attempted!
             return 3;
 
     }
+    //update last coordinates (for drawing)
     lastPlacedx = x;
     lastPlacedy = y;
+    //change color and true for x,y
     changeColor(x,y,col);
     field[x][y][4] = true;
+    // return 0 = good
     return 0;
 }
-bool isFull()
+bool isFull() //check if the whole thing's full (for winning in some modes)
 {
     for(int i = 0; i<SIZE; i++)
     {
@@ -284,15 +296,15 @@ bool isFull()
         {
             if(field[i][j][4]==false)
             {
-                return false;
+                return false; //if anything's not full, return false
             }
         }
     }
-    return true;
+    return true; //otherwise it's true
 }
 
-bool isEmpty()
-{
+bool isEmpty() //check if the whole thing is empty (also sometimes for winning)
+{ //literally the reverse of isFull()
     for(int i = 0; i<SIZE; i++)
     {
         for(int j = 0; j<SIZE;j++)
@@ -308,29 +320,29 @@ bool isEmpty()
 
 
 void clearFull()
-{
+{ //clear rows/cols that are full (doesn't include squares yet)
     printf("\e[?25l");
     //rows:
-    int ri[SIZE];
-    int rinum = 0;
-    bool full = true;
-    for(int i = 0; i<SIZE; i++)
+    int ri[SIZE]; //SIZE = max number of possible full i s
+    int rinum = 0; //actual number of full i s
+    bool full = true; //this is used to check fullness.
+    for(int i = 0; i<SIZE; i++) //find full i s
     {
         full = true;
         for(int j = 0; j<SIZE; j++)
         {
             if(field[i][j][4]==false)
             {
-                full = false;
+                full = false; //oh, okay, it's not full
             }
         }
-        if(full == true)
+        if(full == true) //if it's full, add i to ri and increment rinum
         {
             ri[rinum] = i;
             rinum++;
         }
     }
-    int rj[SIZE];
+    int rj[SIZE]; //same for j s
     int rjnum = 0;
     for(int j = 0; j<SIZE; j++)
     {
@@ -349,26 +361,26 @@ void clearFull()
             rjnum++;
         }
     }
-    if(rjnum != 0 || rinum !=0)
+    if(rjnum != 0 || rinum !=0) //if at least 1 row/col is full
     {
-        if(ANIMATE == 0)
+        if(ANIMATE == 0) //just render * s
         {
 
             for(int i = 0; i<rinum; i++)
             {
                 for(int j = 0; j<SIZE; j++)
                 {
-                    int q = ri[i];
+                    int q = ri[i]; //this line makes us only visit full i s
                     field[q][j][4] = false;
                     field[q][j][3] = true;
                 }
             }
-            for(int j = 0; j<rjnum; j++)
+            for(int j = 0; j<rjnum; j++) //same thing
             {
                 for(int i = 0; i<SIZE; i++)
                 {
                     int q = rj[j];
-                    if(field[i][q][4] == true)
+                    if(field[i][q][4] == true) //only ones not already cleared
                     {
                         field[i][q][3] = true;
                         field[i][q][4] = false;
@@ -376,26 +388,28 @@ void clearFull()
                 }
             }
 
+            //make the last one render too
             field[lastPlacedx][lastPlacedy][3] = true;
             renderBoardHead();
 
-            waitMS(WAITTIME);
+            waitMS(WAITTIME); //delay (customizable)
 
+            //if last coordinates are part of the line to clear, should be cleared. else * should stay.
             bool lastImpacted;
-            for(int i = 0; i<rinum; i++)
+            for(int i = 0; i<rinum; i++) //now we clear them (for i s)
             {
                 for(int j = 0; j<SIZE; j++)
                 {
                     int q = ri[i];
                     changeColor(q,j,-1);
                     field[q][j][3] = false;
-                    if(q == lastPlacedx && j == lastPlacedy)
+                    if(q == lastPlacedx && j == lastPlacedy) //if we found last coord here.
                     {
                         lastImpacted = true;
                     }
                 }
             }
-            for(int j = 0; j<rjnum; j++)
+            for(int j = 0; j<rjnum; j++) //same for j
             {
                 for(int i = 0; i<SIZE; i++)
                 {
@@ -409,23 +423,25 @@ void clearFull()
                 }
             }
 
+            //there it's all supposed to be false:
             field[lastPlacedx][lastPlacedy][3] = false;
             if(lastImpacted){
-                renderBoardHead();
+                renderBoardHead(); //render to clear all
             }
             else
             {
-                renderBoard();
+                renderBoard(); //render including last coord
             }
 
         }
-        else
+        else //animation, only changes rendering not looking for rows/cols
         {
-            bool lastImpacted = false;
+            bool lastImpacted = false; //same thing
             bool changed = false;
-            for(int j = 0; j<SIZE; j++)
+            //good old inum and jnum
+            for(int j = 0; j<SIZE; j++) //render through cols (all of the full ones at once)
             {
-                for(int i = 0; i<rinum; i++)
+                for(int i = 0; i<rinum; i++) //i inside because up and down and have to render IN ORDER
                 {
                     int q = ri[i];
                     field[q][j][4] = false;
@@ -436,7 +452,7 @@ void clearFull()
                         lastImpacted = true;
                     }
                 }
-                if(rinum >0)
+                if(rinum >0) //render (only if some i s are full, otherwise it would just be dumb delay)
                 {
                     waitMS(WAITTIME/SIZE);
                     if(lastImpacted){
@@ -448,7 +464,7 @@ void clearFull()
                     }
                 }
             }
-            for(int i = 0; i<SIZE; i++)
+            for(int i = 0; i<SIZE; i++) //render through rows (all at once)
             {
                 changed = false;
                 for(int j = 0; j<rjnum; j++)
@@ -458,7 +474,7 @@ void clearFull()
                     {
                         lastImpacted = true;
                     }
-                    if(field[i][q][4] == true)
+                    if(field[i][q][4] == true) //only for ones that have not been cleared above
                     {
 
                         field[i][q][3] = false;
@@ -468,7 +484,7 @@ void clearFull()
 
                     }
                 }
-                if(changed)
+                if(changed) //only do waiting when legitimiately clearing squares
                 {
                     waitMS(WAITTIME/SIZE);
                     if(lastImpacted){
@@ -482,21 +498,24 @@ void clearFull()
             }
         }
     }
+    //count lines
+    lineCount += rinum;
+    lineCount += rjnum;
     printf("\e[?25h");
-
 }
 
 void waitMS(int ms) //this is such a funny way of sleeping this is what I shall do.
 {
-    struct timespec ts;
+    struct timespec ts; //idk time stuff, too lazy to write comments
     ts.tv_sec = ms / 1000;
     ts.tv_nsec = (ms % 1000) * 1000000;
     nanosleep(&ts, NULL);
 }
-int canPlace(int shape)
+int canPlace(int shape) //CAN it go here?
+//if no -> return -1. if yes -> return i value of first i where it can be placed.
 {//SHAPES
     switch(shape){
-        case(0):
+        case(0): //just check all of the needed spots for each one
             for(int i = 0; i<SIZE; i++)
             {
                 for(int j = 0; j<SIZE; j++)
@@ -606,7 +625,7 @@ int canPlace(int shape)
             }
             return -1;
         case 6:
-            bool r1 = false;
+            bool r1 = false; //same r1, r2, r3 thing to check if the thing can be placed
             bool r2 = false;
             bool r3 = false;
             for(int i = 0; i<SIZE-2;i++)
@@ -653,13 +672,68 @@ int canPlace(int shape)
                 }
             }
             return -1;
-        default:
+        default: //wrong shape attempted
             printf("\033[91msomething went wrong\n\033[0m");
             break;
     }
 }
 
-void renderBoard()
+void renderBoard() //draw the board
+{
+    clearScreen();
+    printf("\n"); //a little spacing
+    printf("   ");
+    if(SIZE>=10) //a lot of odd formatting stuff
+    {
+        printf(" "); //extra space for the row shapes
+    }
+    for(int i = 0; i<SIZE; i++)
+    {
+
+        if(DOUBLEINT ==1 && SIZE>10) //if formatted in 02 form...
+        {
+            printf(" %02d",i); //that's what this is
+        }
+        else{ //otherwise
+            if(i/10 != 0)
+            {
+                printf(" %d",i); //size is different if it's at least 10
+            }
+            else
+            {
+                printf(" %d ",i);
+            }
+        }
+    }
+
+    printf("\n"); //space after the numbers
+    for(int i = 0; i<SIZE; i++) //print row by row
+    {
+        if(DOUBLEINT == 1&&SIZE>10) //again, formatting
+        {
+            printf(" %02d ",i);
+        }
+        else{ //more formatting, do you actually read comments? I don't.'
+            if(SIZE >=10 && i/10 == 0)
+            {
+                printf("  %d ",i);
+            }
+            else
+            {
+                printf(" %d ",i);
+            }
+        }
+        for(int j = 0; j<SIZE; j++) //now render the line of the field
+        {
+            renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j)); //make a star only in last coordinated x,y
+        }
+        printf("\n");
+    }
+    setCol(-1); //normal colors now
+    printf("\n"); //a bit more spacing
+    renderShape(c_block,c_col,true); //draw the current block
+}
+void renderBoardHead() //same as renderBoard except stars are determined by field[foo][foo][3] (the one that determines if star)
 {
     clearScreen();
     printf("\n");
@@ -706,7 +780,7 @@ void renderBoard()
         }
         for(int j = 0; j<SIZE; j++)
         {
-            renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j));
+            renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],field[i][j][3]); //here
         }
         printf("\n");
     }
@@ -714,76 +788,22 @@ void renderBoard()
     printf("\n");
     renderShape(c_block,c_col,true);
 }
-void renderBoardHead()
-{
-    clearScreen();
-    printf("\n");
-    printf("   ");
-    if(SIZE>=10)
-    {
-        printf(" ");
-    }
-    for(int i = 0; i<SIZE; i++)
-    {
-
-        if(DOUBLEINT ==1 && SIZE>10)
-        {
-            printf(" %02d",i);
-        }
-        else{
-            if(i/10 != 0)
-            {
-                printf(" %d",i);
-            }
-            else
-            {
-                printf(" %d ",i);
-            }
-        }
-    }
-
-    printf("\n");
-    for(int i = 0; i<SIZE; i++)
-    {
-        if(DOUBLEINT == 1&&SIZE>10)
-        {
-            printf(" %02d ",i);
-        }
-        else{
-            if(SIZE >=10 && i/10 == 0)
-            {
-                printf("  %d ",i);
-            }
-            else
-            {
-                printf(" %d ",i);
-            }
-        }
-        for(int j = 0; j<SIZE; j++)
-        {
-            renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],field[i][j][3]);
-        }
-        printf("\n");
-    }
-    setCol(-1);
-    printf("\n");
-    renderShape(c_block,c_col,true);
-}
-int init()
+int init() //this is to start randomness and clear board
 {
     started = true;
     char randString[32];
     if(sodium_init() <0){ //random library died! Oh no!
         printf("\e[91mA Catastrophic Faliure Occured (EXIT CODE 2)\e[0m\n");
         return 2;
-    }
-    fullCount = 0;
+    } //yeah, I know doing this over and over is a little inelegant, leave me alone.
+    randombytes_buf(randString, 32);
+    lineCount = 0; //clear lines full
     int col = BASECOL;
     int rmod = 0;
     int gmod = 0;
     int bmod = 0;
-    randombytes_buf(randString, 32);
     for(int i = 0; i<SIZE; i++)
+        //set all of hte colors to normal
     {
         for(int j = 0; j<SIZE; j++)
         {
@@ -817,5 +837,5 @@ int init()
 
         }
     }
-    return 0;
+    return 0; //okay cool all set up.
 }

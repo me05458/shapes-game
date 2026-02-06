@@ -12,20 +12,22 @@
 
 //reset the character input area
 //I finally figured out how it works!!
-void cleanChar();
-void clearScreen();
-int init();
+void cleanChar(); //cleans surplus stdin input
+void clearScreen(); //just clears everything off the terminal.
+int init(); //start library and reset field
+//set an element of the field to a color:
 void changeColorRGB(int xpos, int ypos, int r, int g, int b);
 void changeColor(int xpos, int ypos, int color);
-int charEater(char c);
-int blockToField(int x, int y, int block, int col);
+int charEater(char c); //turns chars to ints
+int blockToField(int x, int y, int block, int col); //puts a block in the field
+//checks full/empty field respectively:
 bool isFull();
 bool isEmpty();
-int canPlace(int shape);
-void renderBoard();
-void waitMS(int ms);
-void clearFull();
-void renderBoardHead();
+int canPlace(int shape); //shape can be placed? (aka good empty space?)
+void renderBoard(); //draw (includes current shape)
+void waitMS(int ms); //wait
+void clearFull(); //clear rows/cols that are full
+void renderBoardHead(); //render board, but with different star settings
 #endif
 
 
