@@ -783,9 +783,16 @@ void renderBoardHead() //same as renderBoard except stars are determined by fiel
 int init() //this is to start randomness and clear board
 {
     int t = readFile();
-    if(t != 0)
+    if(t == 1)
     {
-        return t;
+        printf("Continue anyway (with defaults)? (Y/n)\n");
+        int m = getchar();
+        if (m == 'n' || m=='N' || m=='q' || m=='Q')
+        {
+            return 4;
+        }
+        if(m != '\n')
+            cleanChar();
     }
     started = true;
     char randString[32];

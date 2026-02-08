@@ -1,15 +1,18 @@
-0
-0
-3
-0
-1
-500
-0
-1
-20
-50
-225
-10
-0
-0
-0
+--- settings file. Changing values here is only recommended for advanced users. Don't break the formatting! ---
+
+verbose: 0
+reload: 0
+clear: 1
+subdivisions: 3
+normal coordinates: 1
+double numbers: 1
+wait time: 500
+animate: 0
+use sys clear: 1
+SMALLOFF: 20
+BIGOFF: 50;
+BASECOL: 225
+RMOD: 10
+GMOD: 0
+BMOD: 0
+MODBLOCK: 0

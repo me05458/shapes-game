@@ -136,6 +136,50 @@ int main()
             keepgo=0;
             break;
         }
+        if(xtmp == 'm') //I mistype make in here often enough to justify this.
+        {
+            xtmp = getchar();
+            if(xtmp == 'a')
+            {
+                xtmp = getchar();
+                if(xtmp == 'k')
+                {
+                    xtmp = getchar();
+                    if(xtmp == 'e')
+                    {
+                        printf("\e[91mYou're still in the program!\e[0m\n");
+                        cleanChar();
+                        goto whilestart;
+                    }
+                }
+            }
+        } //same with ./game
+        if(xtmp == '.')
+        {
+            xtmp = getchar();
+            if(xtmp == '/')
+            {
+                xtmp = getchar();
+                if(xtmp == 'g')
+                {
+                    xtmp = getchar();
+                    if(xtmp == 'a')
+                    {
+                        xtmp = getchar();
+                        if(xtmp == 'm')
+                        {
+                            xtmp = getchar();
+                            if(xtmp == 'e')
+                            {
+                                printf("\e[91mYou're still in the program!\e[0m\n");
+                                cleanChar();
+                                goto whilestart;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         if(xtmp == 'h' || xtmp == 'H') //hint
         {
             cleanChar();
@@ -183,10 +227,16 @@ int main()
             }
             goto whilestart; //go to begining
         }
+        if(charEater(xtmp) < 0)
+        {
+            printf("\e[91mletters are not coordinates\e[0m\n");
+            cleanChar();
+            goto whilestart;
+        }
         char x2tmp = getchar(); //okay, next character
         if(x2tmp == '\n') //clearly not enough numbers
         {
-            printf("incomplete coordinates\n");
+            printf("\e[91mincomplete coordinates\e[0m\n");
             goto endhere; //to end
         }
         if(x2tmp == ','&&DOUBLEINT != 1) //comma coordinates used, all good.
@@ -198,9 +248,15 @@ int main()
             }
         }
         if(x2tmp == ',' && DOUBLEINT == 1){
-            printf("incorrect coordinate formatting."); //we're not doing , coordinates
+            printf("\e[91mincorrect coordinate formatting.\e[0m"); //we're not doing , coordinates
             cleanChar();
             goto endhere;
+        }
+        if(charEater(x2tmp) < 0)
+        {
+            printf("\e[91mletters are not coordinates\e[0m\n");
+            cleanChar();
+            goto whilestart;
         }
         int y = 0; //it's time to start some spot checking.
         int x = 0;
@@ -222,8 +278,14 @@ int main()
         char ytmp = getchar(); //okay let's get more things because we need more of them
         if(ytmp == '\n') //not enough coordinates at this point.
         {
-            printf("incomplete coordinates\n");
+            printf("\e[91mincomplete coordinates\e[0m\n");
             goto endhere; //end
+        }
+        if(charEater(ytmp) < 0)
+        {
+            printf("\e[91mletters are not coordinates\e[0m\n");
+            cleanChar();
+            goto whilestart;
         }
         if(SIZE<=10) //okay, we've done a,b with single digits. just set x,y
         {
@@ -243,9 +305,15 @@ int main()
         char y2tmp = getchar(); //okay, double digits...
         if(y2tmp == '\n')
         {
+            if(charEater(y2tmp) < 0)
+            {
+                printf("\e[91mletters are not coordinates\e[0m\n");
+                cleanChar();
+                goto whilestart;
+            }
             if(DOUBLEINT == 1) //we need that second digit!!
             {
-                    printf("incomplete coordinates\n");
+                    printf("\e[91mincomplete coordinates\e[0m\n");
                     goto endhere;
             }
                 y2tmp = ytmp;

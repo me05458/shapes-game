@@ -26,4 +26,5 @@ extern int RMOD;
 extern int GMOD;
 extern int BMOD;
 extern int MODBLOCK;
+extern int VERBOSE;
 #endif
