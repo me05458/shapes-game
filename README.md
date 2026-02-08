@@ -106,8 +106,8 @@ xxx
 
 # known issues
 - the `system()` function poses a security vulnerability
-- Messing with the settings.h file seems like it could pose an issue
+- while settings works, it is extremely difficult to modify and does not follow the documentation above. This will be fixed extremely soon!
 - Some iniefficiency/redundancy in rendering
 - animation causes flickering
 - the shapes stuff is quite inelegant and needs fixing
-- Settings has some problems with field rendering (you have to press enter on it)
+- Check (settings checker) has some problems with field rendering (you have to press enter on it)
