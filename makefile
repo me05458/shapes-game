@@ -8,6 +8,7 @@ OBJS = \
        shapes.o \
        helper.o\
        vars.o\
+       file.o\
 
 GAME_OBJS =\
 	game.o
@@ -31,6 +32,7 @@ $(LINK_TARGET): $(OBJS) $(SETTINGS_OBJS) $(GAME_OBJS) settings.h makefile
 game.o: settings.h shapes.h helper.h vars.h
 check.o: settings.h helper.h vars.h
 shapes.o: settings.h vars.h
+helper.o: file.h
 
 
 clean:

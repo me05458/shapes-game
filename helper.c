@@ -4,6 +4,7 @@
 #include "settings.h"
 #include "helper.h"
 #include "shapes.h"
+#include "file.h"
 #include "vars.h"
 #include <time.h>
 #include <stdbool.h>
@@ -781,6 +782,11 @@ void renderBoardHead() //same as renderBoard except stars are determined by fiel
 }
 int init() //this is to start randomness and clear board
 {
+    int t = readFile();
+    if(t != 0)
+    {
+        return t;
+    }
     started = true;
     char randString[32];
     if(sodium_init() <0){ //random library died! Oh no!
