@@ -4,31 +4,31 @@
 #include <stdbool.h>
 
 //basic stuff
-#define RELOAD 0
-#define CLEAR 1
-#define SIZE 9
+/*#define RELOAD 0
+#define CLEAR 1*/
+#define SIZE 9/*
 #define SUBDIV 3 //don't make it zero
 
 //random advanced settings:
-#define NORM_COORD 1
+#define NORM_COORD 0
 #define DOUBLEINT 1
 #define WAITTIME 500
 #define ANIMATE 0
 
 //will there be clear()? 1 recommended for regular gameplay.
-#define USE_SYS 1
+#define USE_SYS 1*/
 
 //color stuff
 #define TEXTCOL 225,225,225
 
-#define SMALLOFF 20
+/*#define SMALLOFF 20
 #define BIGOFF 50
 #define BASECOL 225
 //these are the dangerous ones to mess with:
 #define RMOD 10
 #define GMOD 0
 #define BMOD 0
-#define MODBLOCK false
+#define MODBLOCK false*/
 
 
 

@@ -4,6 +4,7 @@
 #include "settings.h"
 #include "helper.h"
 #include "shapes.h"
+#include "vars.h"
 #include <time.h>
 #include <stdbool.h>
 void cleanChar() //classic cleanchar function.

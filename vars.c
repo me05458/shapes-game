@@ -8,3 +8,18 @@ int c_block; //current block (currently dealing with it)
 int c_col; //current color
 bool started = true; //just started
 int lineCount = 0; //lines filled?
+int RELOAD = 0;
+int CLEAR = 0;
+int SUBDIV = 3;
+int NORM_COORD =0;
+int DOUBLEINT =1;
+int WAITTIME =500;
+int ANIMATE= 0;
+int USE_SYS= 1;
+int SMALLOFF= 20;
+int BIGOFF =50;
+int BASECOL =225;
+int RMOD =10;
+int GMOD= 0;
+int BMOD= 0;
+int MODBLOCK= false;
