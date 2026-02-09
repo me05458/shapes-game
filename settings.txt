@@ -8,8 +8,8 @@ double numbers: 1
 wait time: 500
 animate: 0
 use sys clear: 1
-SMALLOFF: 20
-BIGOFF: 0
+SMALLOFF: 10
+BIGOFF: 30
 BASECOL: 225
 RMOD: 10
 GMOD: 0

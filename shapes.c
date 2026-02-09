@@ -63,6 +63,12 @@ void renderShape(int type, int color, bool head) //calls other function
 void renderShapeRGB(int type, int r, int g, int b, bool head) //this actually does shapes
 //head -> render shape with *. This is a bunch of nonsense because of the bad rendering dynamics, I'm gonna refactor it one day.
 { //SHAPES
+    if(type != -1)
+    {
+        r -= BIGOFF;
+        b -= BIGOFF;
+        g -= BIGOFF;
+    }
     setColRGB(r,g,b);
     switch (type) {
         case -1: //the dots in the field (no newline)
