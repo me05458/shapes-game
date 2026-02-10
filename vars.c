@@ -24,3 +24,6 @@ int GMOD= 0;
 int BMOD= 0;
 int MODBLOCK= false;
 int VERBOSE = false;
+int TEXTCOLR = 225;
+int TEXTCOLG = 225;
+int TEXTCOLB = 225;

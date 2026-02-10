@@ -19,10 +19,10 @@
 #define USE_SYS 1*/
 
 //color stuff
-#define TEXTCOL 225,225,225
+//#define TEXTCOL 225,225,225
 
 /*#define SMALLOFF 20
-#define BIGOFF 50
+#define BIGOFF 50.
 #define BASECOL 225
 //these are the dangerous ones to mess with:
 #define RMOD 10
@@ -54,8 +54,8 @@
 
 
 //block stuff
-#define BLOCKS {0,1,2,3,4,5,6,7,8}
-#define BLOCKNUM 9 //these HAVE to match!!!
+#define BLOCKS {0,1,2,3,4,5,6,7,8,9}
+#define BLOCKNUM 10 //these HAVE to match!!!
 /*
 0: square
 X
@@ -92,6 +92,10 @@ xxx
  8:
 xxx
 x
+
+9:
+xxx
+  x
 */
 
 //ignore this

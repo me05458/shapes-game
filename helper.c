@@ -267,6 +267,26 @@ int blockToField(int x, int y, int block, int col) //place a block
             field[x][y+2][4] = true;
             field[x+1][y][4] = true;
             break;
+        case 9:
+            if(y<=1)
+            {
+                return 2;
+            }
+            if(x>=SIZE-1)
+            {
+                return 2;
+            }
+            if(field[x][y][4] == true || field[x][y-1][4] == true || field[x][y-2][4] == true || field[x][y][4] == true)
+            {
+                return 4;
+            }
+            changeColor(x,y-1,col);
+            changeColor(x,y-2,col);
+            changeColor(x+1,y,col);
+            field[x][y-1][4] = true;
+            field[x][y-2][4] = true;
+            field[x+1][y][4] = true;
+            break;
         default: //abnormal shape attempted!
             return 3;
 
@@ -658,6 +678,18 @@ int canPlace(int shape) //CAN it go here?
                 for(int j = 0; j<SIZE-2; j++)
                 {
                     if(field[i][j][4] == false && field[i+1][j][4] == false && field[i][j+1][4] == false && field[i][j+2][4]==false)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        case 9:
+            for(int i =0; i<SIZE-1; i++)
+            {
+                for(int j = 2; j<SIZE; j++)
+                {
+                    if(field[i][j][4] == false && field[i+1][j][4] == false && field[i][j-1][4] == false && field[i][j-2][4]==false)
                     {
                         return i;
                     }

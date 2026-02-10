@@ -3,13 +3,16 @@ verbose: 0
 reload: 0
 clear: 1
 subdivisions: 3
-normal coordinates: 0
+normal coordinates: 1
 double numbers: 1
 wait time: 500
 animate: 0
 use sys clear: 1
-SMALLOFF: 10
-BIGOFF: 30
+text color r: 225
+text color b: 225
+text color g: 225
+SMALLOFF: 20
+BIGOFF: 50
 BASECOL: 225
 RMOD: 10
 GMOD: 0

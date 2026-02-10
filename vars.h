@@ -27,4 +27,7 @@ extern int GMOD;
 extern int BMOD;
 extern int MODBLOCK;
 extern int VERBOSE;
+extern int TEXTCOLR;
+extern int TEXTCOLG;
+extern int TEXTCOLB;
 #endif

@@ -31,7 +31,7 @@ void setColRGB(int r, int g, int b) //your friendly formatting function
         b=0;
 
     //just escape codes
-    printf("\033[38;2;%d;%d;%dm",TEXTCOL); //text see 38
+    printf("\033[38;2;%d;%d;%dm",TEXTCOLR, TEXTCOLG, TEXTCOLB); //text see 38
     printf("\033[48;2;%d;%d;%dm",r,g,b); //background see 48
 }
 
@@ -230,6 +230,26 @@ void renderShapeRGB(int type, int r, int g, int b, bool head) //this actually do
             setColRGB(r,g,b);
             printf("   ");
             setCol(-2);
+            setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setCol(-2);
+            break;
+        case 9: // xxx
+            //        x
+            printf("   ");
+            setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setColRGB(r,g,b);
+            if(head)
+            {
+                printf(" * ");
+            }
+            else
+            {
+                printf("   ");
+            }
+            setCol(-2);
+            printf("      ");
             setColRGB(r-SMALLOFF, g-SMALLOFF,b-SMALLOFF);
             printf("   ");
             setCol(-2);

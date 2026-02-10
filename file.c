@@ -5,6 +5,7 @@
 
 int readFile()
 {
+    int bad = 0;
     FILE *ptr = fopen("settings.txt", "r");
     if (ptr == NULL) {
         ptr = fopen("settings.txt","w");
@@ -47,6 +48,12 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
+    if(RELOAD != 1 && RELOAD != 0)
+    {
+        printf("Invalid reload value.\n");
+        RELOAD = 1;
+        bad = 1;
+    }
     if(VERBOSE)
         printf(" %d\n",RELOAD);
 
@@ -56,6 +63,12 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
+    if(CLEAR != 1 && CLEAR != 0)
+    {
+        printf("Invalid clear value.\n");
+        CLEAR = 0;
+        bad =  1;
+    }
     if(VERBOSE)
         printf(" %d\n",CLEAR);
 
@@ -65,6 +78,12 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
+    if(SUBDIV == 0)
+    {
+        printf("Subdivision cannot be 0! Set BIGOFF to 0 instead to remove subdivisions.\n");
+        SUBDIV = 3;
+        bad =  1;
+    }
     if(VERBOSE)
         printf(" %d\n",SUBDIV);
 
@@ -74,6 +93,12 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
+    if(NORM_COORD != 1 && NORM_COORD != 0)
+    {
+        printf("Invalid coordinates type value.\n");
+        NORM_COORD = 1;
+        bad =  1;
+    }
     if(VERBOSE)
         printf(" %d\n",NORM_COORD);
 
@@ -83,6 +108,12 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
+    if(DOUBLEINT != 1 && DOUBLEINT != 0)
+    {
+        printf("Invalid number formatting value.\n");
+        DOUBLEINT = 1;
+        bad =  1;
+    }
     if(VERBOSE)
         printf(" %d\n",DOUBLEINT);
 
@@ -101,6 +132,12 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
+    if(ANIMATE != 1 && ANIMATE != 0)
+    {
+        printf("Invalid animate value.\n");
+        ANIMATE = 0;
+        bad =  1;
+    }
     if(VERBOSE)
         printf(" %d\n",ANIMATE);
 
@@ -109,8 +146,58 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
+    if(USE_SYS != 1 && USE_SYS != 0)
+    {
+        printf("Invalid use system value.\n");
+        USE_SYS = 1;
+        bad =  1;
+    }
     if(VERBOSE)
         printf(" %d\n",USE_SYS);
+
+    READWORD
+    e=fscanf(ptr, "%d",&TEXTCOLR);
+    CHECK;
+    e=fscanf(ptr,"%c",&c);
+    CHECK;
+    if(TEXTCOLR < 0 || TEXTCOLR > 225)
+    {
+        printf("Invalid text color red value.\n");
+        TEXTCOLR = 0;
+        bad =  1;
+    }
+    if(VERBOSE)
+        printf(" %d\n",TEXTCOLR);
+
+
+    READWORD
+    e=fscanf(ptr, "%d",&TEXTCOLG);
+    CHECK;
+    e=fscanf(ptr,"%c",&c);
+    CHECK;
+    if(TEXTCOLG < 0 || TEXTCOLG > 225)
+    {
+        printf("Invalid text color green value.\n");
+        TEXTCOLG = 0;
+        bad =  1;
+    }
+    if(VERBOSE)
+        printf(" %d\n",TEXTCOLG);
+
+
+    READWORD
+    e=fscanf(ptr, "%d",&TEXTCOLB);
+    CHECK;
+    e=fscanf(ptr,"%c",&c);
+    CHECK;
+    if(TEXTCOLB < 0 || TEXTCOLB > 225)
+    {
+        printf("Invalid text color blue value.\n");
+        TEXTCOLB = 0;
+        bad =  1;
+    }
+    if(VERBOSE)
+        printf(" %d\n",TEXTCOLB);
 
 
 
@@ -197,5 +284,5 @@ int readFile()
 
 
     fclose(ptr);
-    return 0;
+    return bad;
 }
