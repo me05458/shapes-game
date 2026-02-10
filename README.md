@@ -53,3 +53,4 @@ It is possible to mess the color stuff up so badly it breaks the game. If this i
 - animation causes flickering
 - the shapes stuff is quite inelegant and needs fixing
 - Check (settings checker) has some problems with field rendering (you have to press enter on it)
+- Check (settings checker) dones't work at all basically (at least with settingsable values)
