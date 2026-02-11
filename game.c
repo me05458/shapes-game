@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "vars.h"
+#define return uninit(); return
+
 int reloadCount = 0; //how many times we reloaded
 int hintCount = 0;//hints used
 int blockCount = 0; //blocks placed

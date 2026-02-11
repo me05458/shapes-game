@@ -54,8 +54,8 @@
 
 
 //block stuff
-#define BLOCKS {0,1,2,3,4,5,6,7,8,9}
-#define BLOCKNUM 10 //these HAVE to match!!!
+//#define BLOCKS {0,1,2,3,4,5,6,7,8,9}
+//#define BLOCKNUM 10 //these HAVE to match!!!
 /*
 0: square
 X

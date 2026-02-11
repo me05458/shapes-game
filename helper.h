@@ -29,6 +29,7 @@ void renderBoard(); //draw (includes current shape)
 void waitMS(int ms); //wait
 void clearFull(); //clear rows/cols that are full
 void renderBoardHead(); //render board, but with different star settings
+void uninit(); //destructor; cleans memory
 #endif
 
 

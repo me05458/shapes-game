@@ -826,6 +826,11 @@ int init() //this is to start randomness and clear board
         if(m != '\n')
             cleanChar();
     }
+    if(t == 2)
+    {
+        printf("\e[91mA Catastrophic settings error observed (EXIT CODE 8)\e[0m\n");
+        return 8;
+    }
     started = true;
     char randString[32];
     if(sodium_init() <0){ //random library died! Oh no!
@@ -874,4 +879,9 @@ int init() //this is to start randomness and clear board
         }
     }
     return 0; //okay cool all set up.
+}
+
+void uninit()
+{
+    free(blocks);
 }

@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "vars.h"
+#include "helper.h"
 #define CHECK if(e < 0){printf("Warning: settings file doesn't have enough entries!\n");return 1;}
 #define READWORD while(c != ':'){ e=fscanf(ptr, "%c",&c); if(VERBOSE) { printf("%c",c); } CHECK; }
+#define TOTALBLOCKS 10
 
 int readFile()
 {
@@ -41,6 +44,7 @@ int readFile()
     {
         printf("verbose: true\n");
     }
+
 
 
     READWORD
@@ -154,6 +158,66 @@ int readFile()
     }
     if(VERBOSE)
         printf(" %d\n",USE_SYS);
+
+    READWORD
+    int t_blocks[TOTALBLOCKS];
+    BLOCKNUM = 0;
+    e=fscanf(ptr, "%c", &c);
+    CHECK
+    e = fscanf(ptr, "%c",&c);
+    CHECK
+    int q = charEater(c);
+    if(q < 0)
+    {
+        printf("Invalid block sequence.\n");
+        return 2;
+    }
+    else
+    {
+        t_blocks[BLOCKNUM] = q;
+        BLOCKNUM++;
+    }
+    e = fscanf(ptr, "%c",&c);
+    CHECK
+    while (c != '\n')
+    {
+        if(c != ',')
+        {
+            printf("Invalid blocks formatting!\n");
+            return 2;
+        }
+        e=fscanf(ptr, "%c", &c);
+        CHECK
+        int q = charEater(c);
+        if(q < 0)
+        {
+            printf("Invalid block sequence.\n");
+            return 2;
+        }
+        else
+        {
+
+            t_blocks[BLOCKNUM] = q;
+            BLOCKNUM++;
+        }
+        e = fscanf(ptr, "%c", &c);
+        CHECK
+    }
+    blocks = (int*)calloc(BLOCKNUM,sizeof(int));
+    if(blocks == nullptr)
+    {
+        printf("Not enough memory!\n");
+        return 2;
+    }
+    for(int i = 0; i< BLOCKNUM; i++)
+    {
+        blocks[i] = t_blocks[i];
+        if(VERBOSE)
+            printf("%d,",blocks[i]);
+    }
+    if(VERBOSE)
+        printf("\n");
+
 
     READWORD
     e=fscanf(ptr, "%d",&TEXTCOLR);

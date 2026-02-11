@@ -5,6 +5,8 @@
 #include "settings.h"
 #include "helper.h"
 #include <stdbool.h>
+//this makes it easier to call the cleaner when done
+#define return ~init(); return
 //this helps us see if the settings are good.
 //this makes the color output stuff more
 bool verbose = false; //this should start as FALSE

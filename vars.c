@@ -1,6 +1,8 @@
 #include "settings.h"
 int field[SIZE][SIZE][5]; //field
-int blocks[BLOCKNUM] = BLOCKS; //array of blocks
+//int blocks[BLOCKNUM] = BLOCKS; //array of blocks
+int *blocks;
+int BLOCKNUM = 1;
 int colors[COLNUM+1][3] = COLORS; //array of colors
 int lastPlacedx = -1; //last coordinates (for * rendering)
 int lastPlacedy = -1;
@@ -15,7 +17,7 @@ int NORM_COORD =1;
 int DOUBLEINT =1;
 int WAITTIME =500;
 int ANIMATE= 0;
-int USE_SYS= 0;
+int USE_SYS= 1;
 int SMALLOFF= 20;
 int BIGOFF =50;
 int BASECOL =225;
