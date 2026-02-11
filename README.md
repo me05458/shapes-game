@@ -31,6 +31,61 @@ The settings file has a bunch of numbers in it. Right now, the settings file nee
 - `clear`: if this is set to 1, completed rows and collumns will be cleared (the game is won if you clear the whole field and lost if there is nowhere left to place a piece if RELOAD is disabled). 0 will use normal mode.
 - `subdivisions`: this is the amount of "subsections" the field will be broken into. This doesn't have to go into size an even number of times, but it looks better if it does. This is purely visual so that the field looks better. Values of <=2 usually look bad. **don't set this to 0!** that will break everything in all sorts of fun catastrophic ways. If you don't want subdivisions, set `BIGOFF` to 0 instead.
 
+## blocks:
+Should be entered in the blocks: line in settings. The following formatting must be followed, or the game cannot run:
+```blocks: <#>,<#>,<#>```
+Supported blocks are:
+0. square
+```
+x
+```
+1. line
+```
+x
+x
+x
+```
+2. line
+```
+xxx
+```
+3. square
+```
+xx
+xx
+```
+4. line
+```
+xx
+```
+5. line
+```
+x
+x
+```
+6. square
+```
+xxx
+xxx
+xxx
+```
+7. plus
+```
+ x
+xxx
+ x
+```
+8. bent shape thingy
+```
+xxx
+x
+```
+0. bent shape thingy
+```
+xxx
+  x
+```
+
 ## random advanced stuff:
 - `wait time`: this is the amount (in ms) that the stars will falsh for when a line is cleared (assuming CLEAR is enabled).
 - `normal coordinates`: if this is 1, enter coordinates in terms of <col>/<row>, if this is 0 enter them <row>/<col>
