@@ -97,6 +97,7 @@ It is possible to mess the color stuff up so badly it breaks the game. If this i
 - `BIGOFF`: this is the difference in darkness between subsections. (darker parts are darker by this much)
 - `SMALLOFF`: this is the difference in darkness between adjacent squares. This should be less than `BIGOFF`.
 - `RMOD` `GMOD` and `BMOD`: these can be used to set different colors in the background (these numbers will be added to the r, g, and b components of the base color respectively). Messing with these can quite easily break the game.
+- `MODCOL`: unlike it's dangerous cousin (linked below), MODCOL doesn't really hurt you. If this is 1, BIGOFF and SMALLOFF will be applied to blocks placed in the field. Otherwise, it wont. Turning this off can help with some color problems.
 - `MODBLOCK`: **I DON'T RECOMMEND TURNING THIS ON**. This means that the MOD values are applied to block colors, which will make everything very weird very fast, and will probably break the game. But hey, it's there if you want to mess with it, I guess. I don't know why I put it in.
 
 ## color.txt
