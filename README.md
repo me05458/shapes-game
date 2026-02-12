@@ -22,7 +22,7 @@ make
 to run the game: `./game`\
 
 # settings
-There are two settings files: settings.txt and color.txt. Settings.txt has all of the normal settings, described below (not necessarily in ordder). color.txt has all of the colors in it. (see [color.txt](#color.txt))
+There are two settings files: settings.txt and color.txt. Settings.txt has all of the normal settings, described below (not necessarily in ordder). color.txt has all of the colors in it. (see [color.txt](#colortxt))
 
 ## basic stuff
 - `verbose`: if this is set to 1, settings will be printed out at start of game. Otherwise, they won't.
