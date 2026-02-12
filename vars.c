@@ -1,9 +1,11 @@
-#include "settings.h"
+#include "vars.h"
 int field[SIZE][SIZE][5]; //field
 //int blocks[BLOCKNUM] = BLOCKS; //array of blocks
 int *blocks;
-int BLOCKNUM = 1;
-int colors[COLNUM+1][3] = COLORS; //array of colors
+int BLOCKNUM = 0;
+//int colors[COLNUM+1][3] = COLORS; //array of colors
+int *colors;
+int COLNUM = 0;
 int lastPlacedx = -1; //last coordinates (for * rendering)
 int lastPlacedy = -1;
 int c_block; //current block (currently dealing with it)
@@ -25,7 +27,8 @@ int RMOD =10;
 int GMOD= 0;
 int BMOD= 0;
 int MODBLOCK= false;
+int MODCOL = true;
 int VERBOSE = false;
-int TEXTCOLR = 225;
-int TEXTCOLG = 225;
-int TEXTCOLB = 225;
+int TEXTCOLR = 255;
+int TEXTCOLG = 255;
+int TEXTCOLB = 255;

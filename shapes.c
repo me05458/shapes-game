@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "settings.h"
 #include "shapes.h"
 #include <stdbool.h>
 
@@ -19,15 +18,15 @@ void setColRGB(int r, int g, int b) //your friendly formatting function
     //all of these are checks for incorrect r,g,b s
     if(r<0)
         r=0;
-    if(r>225)
-        r=225;
+    if(r>255)
+        r=255;
     if(g<0)
         g=0;
-    if(g>225)
-        g = 225;
+    if(g>255)
+        g = 255;
     if(b<0)
         g=0;
-    if(b>225)
+    if(b>255)
         b=0;
 
     //just escape codes
@@ -47,7 +46,7 @@ void setCol(int color) //just call that other color function
         color = 0;
     }
     //pass that color's r,g,b along.
-    setColRGB(colors[color][0],colors[color][1],colors[color][2]);
+    setColRGB(colors[color*3],colors[color*3 + 1],colors[color*3 + 2]);
 }
 
 void renderShape(int type, int color, bool head) //calls other function
@@ -57,13 +56,13 @@ void renderShape(int type, int color, bool head) //calls other function
         color = 0;
     }
     //render shape with RGB
-    renderShapeRGB(type,colors[color][0],colors[color][1],colors[color][2],head);
+    renderShapeRGB(type,colors[color*3],colors[color*3 + 1],colors[color*3 + 2],head);
 }
 
 void renderShapeRGB(int type, int r, int g, int b, bool head) //this actually does shapes
 //head -> render shape with *. This is a bunch of nonsense because of the bad rendering dynamics, I'm gonna refactor it one day.
 { //SHAPES
-    if(type != -1)
+    if(type != -1 && MODCOL)
     {
         r -= BIGOFF;
         b -= BIGOFF;

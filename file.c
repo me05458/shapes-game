@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vars.h"
+#include "file.h"
 #include "helper.h"
 #define CHECK if(e < 0){printf("Warning: settings file doesn't have enough entries!\n");return 1;}
 #define READWORD while(c != ':'){ e=fscanf(ptr, "%c",&c); if(VERBOSE) { printf("%c",c); } CHECK; }
@@ -224,7 +225,7 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
-    if(TEXTCOLR < 0 || TEXTCOLR > 225)
+    if(TEXTCOLR < 0 || TEXTCOLR > 255)
     {
         printf("Invalid text color red value.\n");
         TEXTCOLR = 0;
@@ -239,7 +240,7 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
-    if(TEXTCOLG < 0 || TEXTCOLG > 225)
+    if(TEXTCOLG < 0 || TEXTCOLG > 255)
     {
         printf("Invalid text color green value.\n");
         TEXTCOLG = 0;
@@ -254,7 +255,7 @@ int readFile()
     CHECK;
     e=fscanf(ptr,"%c",&c);
     CHECK;
-    if(TEXTCOLB < 0 || TEXTCOLB > 225)
+    if(TEXTCOLB < 0 || TEXTCOLB > 255)
     {
         printf("Invalid text color blue value.\n");
         TEXTCOLB = 0;
@@ -343,6 +344,134 @@ int readFile()
             printf(" false\n");
         }
     }
+
+    READWORD
+    e=fscanf(ptr, "%d",&d);
+    CHECK;
+    e=fscanf(ptr, "%c",&c);
+    CHECK;
+    if(d == 1)
+    {
+        MODCOL = true;
+    }
+    else
+    {
+        MODCOL = false;
+    }
+    if(VERBOSE)
+    {
+        if(MODCOL)
+        {
+            printf(" true\n");
+        }
+        else
+        {
+            printf(" false\n");
+        }
+    }
+
+    //COLORS
+
+    fclose(ptr);
+    ptr = fopen("color.txt", "r");
+    if (ptr == NULL) {
+        ptr = fopen("color.txt","w");
+        fclose(ptr);
+        ptr = fopen("color.txt","r");
+    }
+    //e = fscanf(ptr, "%c",&c);
+    //CHECK
+    int coltmp;
+    int moretmp;
+    int m = 0;
+    int colarr[100][3]; //you can't have more than 100 colors, I think this is reasonable enough!
+    COLNUM = 0;
+    e = fscanf(ptr, "%d",&coltmp);
+    CHECK
+
+    while(coltmp!= 298)
+    {
+        if(coltmp < 0 || coltmp > 255)
+        {
+            printf("Invalid color r value\n");
+            bad = 1;
+            coltmp = 0;
+        }
+        colarr[COLNUM][0] = coltmp;
+        e = fscanf(ptr, "%c",&c);
+        if(e <0)
+        {
+            printf("nownownow");
+            goto end;
+        }
+        if(c != ',')
+        {
+            printf("Invalid color formatting!\n");
+            return 2;
+        }
+        e = fscanf(ptr, "%d",&coltmp);
+        CHECK
+        if(coltmp < 0 || coltmp > 255)
+        {
+            printf("Invalid color g value\n");
+            bad = 1;
+            coltmp = 0;
+        }
+        colarr[COLNUM][1] = coltmp;
+        e = fscanf(ptr, "%c",&c);
+        CHECK
+        if(c != ',')
+        {
+            printf("Invalid color formatting!\n");
+            return 2;
+        }
+        e = fscanf(ptr, "%d",&coltmp);
+        CHECK
+        if(coltmp < 0 || coltmp > 255)
+        {
+            printf("Invalid color b value\n");
+            bad = 1;
+            coltmp = 0;
+        }
+        colarr[COLNUM][2] = coltmp;
+        e = fscanf(ptr, "%c",&c);
+        CHECK
+        if(c != '\n')
+        {
+            printf("Invalid color formatting!\n");
+            return 2;
+        }
+        COLNUM++;
+        e = fscanf(ptr, "%d",&coltmp);
+        if(e<0)
+        {
+            goto end;
+        }
+    }
+    end:
+    colors = (int*)calloc(COLNUM*3,sizeof(int));
+    if(colors == nullptr)
+    {
+        printf("Not enough memory!\n");
+        return 2;
+    }
+    for(int i = 0; i<COLNUM; i++)
+    {
+        if(VERBOSE)
+            printf("%d: ",i);
+        for(int j = 0; j<3; j++)
+        {
+            colors[i*3+j] = colarr[i][j];
+            if(VERBOSE)
+            {
+                printf("%d ",colarr[i][j]);
+            }
+        }
+        if(VERBOSE)
+            printf("\n");
+    }
+    COLNUM--;
+
 
 
 

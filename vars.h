@@ -1,11 +1,12 @@
 #ifndef VARS_H
 #define VARS_H
-#include "settings.h"
+#define SIZE 9
 //global vars :3
 extern int field[SIZE][SIZE][5]; //field
 extern int * blocks;
 extern int BLOCKNUM;
-extern int colors[COLNUM+1][3];
+extern int * colors;
+extern int COLNUM;
 extern int lastPlacedx;
 extern int lastPlacedy;
 extern int c_block;
@@ -26,6 +27,7 @@ extern int BASECOL;
 extern int RMOD;
 extern int GMOD;
 extern int BMOD;
+extern int MODCOL;
 extern int MODBLOCK;
 extern int VERBOSE;
 extern int TEXTCOLR;

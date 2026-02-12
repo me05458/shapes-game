@@ -1,7 +1,5 @@
 #ifndef HELPER_H
 #define HELPER_H
-#define FALSE 0
-#define TRUE 1
 #include <stdbool.h>
 #include "vars.h"
 

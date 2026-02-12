@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sodium.h>
-#include "settings.h"
 #include "helper.h"
 #include "shapes.h"
 #include "file.h"
-#include "vars.h"
 #include <time.h>
 #include <stdbool.h>
 void cleanChar() //classic cleanchar function.
@@ -46,11 +44,14 @@ void changeColorRGB(int xpos, int ypos, int r, int g, int b)
             gmod-=SMALLOFF;
             bmod-=SMALLOFF;
     }
-    if((xpos/SUBDIV)%2 == (ypos/SUBDIV)%2) //big sections of color
+    if(MODCOL)
     {
-        rmod-=BIGOFF;
-        gmod-=BIGOFF;
-        bmod-=BIGOFF;
+        if((xpos/SUBDIV)%2 == (ypos/SUBDIV)%2) //big sections of color
+        {
+            rmod-=BIGOFF;
+            gmod-=BIGOFF;
+            bmod-=BIGOFF;
+        }
     }
     field[xpos][ypos][0]=r+rmod; //throw these guys in here
     field[xpos][ypos][1]=g+gmod;
@@ -96,7 +97,7 @@ void changeColor(int xpos, int ypos, int color)
         color = 0;
     }
     //just call that other thing.
-    changeColorRGB(xpos,ypos,colors[color][0],colors[color][1],colors[color][2]);
+    changeColorRGB(xpos,ypos,colors[color*3],colors[color*3 + 1],colors[color*3+2]);
 }
 
 //haha this function is back!

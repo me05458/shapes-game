@@ -1,21 +1,22 @@
 --- settings for shapes-game ---
-verbose: 0
+verbose: 1
 reload: 0
 clear: 1
 subdivisions: 3
-normal coordinates: 1
+normal coordinates: 0
 double numbers: 1
 wait time: 500
 animate: 0
 use sys clear: 1
 blocks: 0,1,2,3,4,5,6,7,8,9
-text color r: 225
-text color b: 225
-text color g: 225
+text color r: 0
+text color b: 0
+text color g: 0
 SMALLOFF: 20
 BIGOFF: 50
-BASECOL: 225
+BASECOL: 100
 RMOD: 10
 GMOD: 0
 BMOD: 0
 MODBLOCK: 0
+MODCOL: 0

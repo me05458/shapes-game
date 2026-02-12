@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "shapes.h"
-#include "settings.h"
 #include "helper.h"
 #include <time.h>
 #include <unistd.h>
@@ -32,6 +31,17 @@ int main()
 {
     //this is some initialization nonsense
     //are the colors right?
+    //printf("more stupid problems: |%c|\n",298);
+    int a = init(); //check if library works?
+    if(a != 0)
+    {
+        return a;
+    }
+    int tmp1 = BIGOFF; //a stupid solution, I know.
+    if(!MODCOL)
+    {
+        BIGOFF = 0;
+    }
     bool fieldCol = BASECOL+RMOD-SMALLOFF-BIGOFF<0||BASECOL+BMOD-SMALLOFF-BIGOFF<0||BASECOL+GMOD-SMALLOFF-BIGOFF<0;
     bool fieldCol2 = BASECOL+RMOD>255||BASECOL+BMOD>255||BASECOL+GMOD>255;
     bool otherCol = false;
@@ -39,11 +49,11 @@ int main()
     {
         for(int i = 0; i<COLNUM+1; i++)
         {
-            if(colors[i][0]+RMOD-SMALLOFF-BIGOFF<0 || colors[i][1]+GMOD-SMALLOFF-BIGOFF<0 || colors[i][2]+BMOD-SMALLOFF-BIGOFF<0)
+            if(colors[i*3]+RMOD-SMALLOFF-BIGOFF<0 || colors[i*3+1]+GMOD-SMALLOFF-BIGOFF<0 || colors[i*3+2]+BMOD-SMALLOFF-BIGOFF<0)
             {
                 otherCol = true;
             }
-            if(colors[i][0]+RMOD>255 || colors[i][1]+GMOD>255 || colors[i][2]+BMOD>255)
+            if(colors[i*3]+RMOD>255 || colors[i*3+1]+GMOD>255 || colors[i*+2]+BMOD>255)
             {
                 otherCol = true;
             }
@@ -53,17 +63,18 @@ int main()
     {
         for(int i = 0; i<COLNUM+1; i++)
         {
-            if(colors[i][0]-SMALLOFF-BIGOFF<0 || colors[i][1]-SMALLOFF-BIGOFF<0 || colors[i][2]-SMALLOFF-BIGOFF<0)
+            if(colors[i*3]-SMALLOFF-BIGOFF<0 || colors[i*3+1]-SMALLOFF-BIGOFF<0 || colors[i*3+2]-SMALLOFF-BIGOFF<0)
                 otherCol = true;
-            if(colors[i][0]>255 || colors[i][1]>255 || colors[i][2]>255)
+            if(colors[i*3]>255 || colors[i*3+11]>255 || colors[i*3+2]>255)
             {
                 otherCol = true;
             }
         }
     }
+    BIGOFF = tmp1;
     if(fieldCol || otherCol || fieldCol2) //if colors bad
     {
-        printf("\033[91mALERT! Color values have not passed checksums. In order to propperly view board, it is recommended to modify color settings. Running ./settings can help diagnose the problem.\033[0m\n");
+        printf("\033[91mALERT! Color values have not passed checksums. In order to propperly view board, it is recommended to modify color settings.\033[0m\n");
         printf("Proceed anyway? (Y/N)\n"); //warn but can keep going
         char tmp = getchar();
         if(tmp == 'n' || tmp =='N'|| tmp == '\n')
@@ -74,11 +85,6 @@ int main()
     }
     int keepgo = 1; //I don't know if this matters?
     clearScreen();
-    int a = init(); //check if library works?
-    if(a != 0)
-    {
-        return a;
-    }
     //generate first block
     c_block = blocks[randombytes_uniform(BLOCKNUM)];
     c_col = randombytes_uniform(COLNUM)+1;
