@@ -7,6 +7,7 @@ OBJS = \
        helper.o\
        vars.o\
        file.o\
+       render.o\
 
 GAME_OBJS =\
 	game.o
@@ -24,7 +25,7 @@ $(LINK_TARGET): $(OBJS) $(GAME_OBJS) makefile vars.h helper.h
 	gcc -o $@ -c $<
 
 game.o: shapes.h
-helper.o: file.h shapes.h
+helper.o: file.h shapes.h render.h
 
 
 clean:

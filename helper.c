@@ -750,7 +750,14 @@ void renderBoard() //draw the board
         }
         for(int j = 0; j<SIZE; j++) //now render the line of the field
         {
-            renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j)); //make a star only in last coordinated x,y
+            if((lastPlacedx==i&&lastPlacedy==j))
+            {
+                renderShapeRGB(-2,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j));
+            }
+            else
+            {
+                renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j));
+            }
         }
         printf("\n");
     }

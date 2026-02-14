@@ -33,7 +33,7 @@ There are two settings files: settings.txt and color.txt. Settings.txt has all o
 ## blocks
 Should be entered in the blocks: line in settings. The following formatting must be followed, or the game cannot run:
 ```blocks: <#>,<#>,<#>```
-Supported blocks are:
+Supported blocks are:  
 0. square
 ```
 x
@@ -79,7 +79,7 @@ xxx
 xxx
 x
 ```
-0. bent shape thingy
+9. bent shape thingy
 ```
 xxx
   x

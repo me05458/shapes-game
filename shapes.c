@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "shapes.h"
+#include "render.h"
 #include <stdbool.h>
 
 void setColRGB(int r, int g, int b) //your friendly formatting function
@@ -58,8 +59,30 @@ void renderShape(int type, int color, bool head) //calls other function
     //render shape with RGB
     renderShapeRGB(type,colors[color*3],colors[color*3 + 1],colors[color*3 + 2],head);
 }
-
-void renderShapeRGB(int type, int r, int g, int b, bool head) //this actually does shapes
+void renderShapeRGB(int type, int r, int g, int b, bool head)
+{
+    if(type == -1)
+    {
+        // printf("dot?");
+        renderDot(r,g,b,false);
+    }
+    else if(type == -2)
+    {
+        renderDot(r,g,b,true);
+    }
+    else
+    {
+        for(int i = 0; i<3; i++)
+        {
+            renderShapeLineRGB(type, r,g,b,i);
+            if(type != -1 && type != -2)
+            {
+                printf("\n");
+            }
+        }
+    }
+}
+/*void renderShapeRGB(int type, int r, int g, int b, bool head) //this actually does shapes
 //head -> render shape with *. This is a bunch of nonsense because of the bad rendering dynamics, I'm gonna refactor it one day.
 { //SHAPES
     if(type != -1 && MODCOL)
@@ -274,6 +297,29 @@ void renderShapeRGB(int type, int r, int g, int b, bool head) //this actually do
             setCol(-2);
             break;
             default:
-                printf("SOMETHING WENT WRONG OH NO"); //oh no :(
+                printf("SOMETHING WENT WRONG OH NO\n"); //oh no :(
     }
+}*/
+
+void renderShapeLineRGB(int type, int r, int g, int b, int line) //all shapes have 3 lines
+{
+        switch(line){
+            case 0:
+                renderLine0(type,r,g,b);
+                break;
+            case 1:
+                renderLine1(type,r,g,b);
+                break;
+            case 2:
+                renderLine2(type,r,g,b);
+                break;
+            default:
+                printf("Invalid shape line!\n");
+                break;
+        }
 }
+void renderShapeLine(int type, int color, int line)
+{
+    renderShapeLineRGB(type, colors[color*3],colors[color*3+1],colors[color*3+2],line);
+}
+
