@@ -812,7 +812,14 @@ void renderBoardHead() //same as renderBoard except stars are determined by fiel
         }
         for(int j = 0; j<SIZE; j++)
         {
-            renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],field[i][j][3]); //here
+            if(field[i][j][3]) //here
+            {
+                renderShapeRGB(-2,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j));
+            }
+            else
+            {
+                renderShapeRGB(-1,field[i][j][0],field[i][j][1],field[i][j][2],(lastPlacedx==i&&lastPlacedy==j));
+            }
         }
         printf("\n");
     }

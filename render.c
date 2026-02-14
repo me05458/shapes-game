@@ -74,8 +74,6 @@ void renderLine1(int type, int r, int g, int b)
             printf("   ");
             break;
         case 5:
-            setCol(-1);
-            printf("   ");
             setColRGB(r,g,b);
             printf(" * ");
             setCol(-1);
@@ -109,13 +107,21 @@ void renderLine1(int type, int r, int g, int b)
             setCol(-1);
             break;
         case 8:
+            setColRGB(r,g,b);
+            printf(" * ");
+            setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setColRGB(r,g,b);
+            printf("   ");
+            setCol(-1);
+            break;
         case 9:
             setColRGB(r,g,b);
             printf("   ");
             setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
-            printf(" * ");
-            setColRGB(r,g,b);
             printf("   ");
+            setColRGB(r,g,b);
+            printf(" * ");
             setCol(-1);
             break;
         default:
@@ -150,9 +156,9 @@ void renderLine2(int type, int r, int g, int b)
             printf("   ");
             break;
         case 3:
-            setColRGB(r,g,b);
-            printf(" * ");
             setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setColRGB(r,g,b);
             printf("   ");
             setCol(-1);
             break;
@@ -166,17 +172,18 @@ void renderLine2(int type, int r, int g, int b)
             setCol(-1);
             break;
         case 8:
-            setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
-            printf(" * ");
-            setCol(-1);
-            printf("      ");
-            break;
-        case 9:
         case 5:
             setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
             printf("   ");
             setCol(-1);
             printf("      ");
+            break;
+        case 9:
+            setCol(-1);
+            printf("      ");
+            setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setCol(-1);
             break;
     }
 
