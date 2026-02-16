@@ -12,7 +12,7 @@ OBJS = \
 GAME_OBJS =\
 	game.o
 
-REBUILDABLES = $(OBJS) $(LINK_TARGET)
+REBUILDABLES = $(OBJS) $(LINK_TARGET) $(GAME_OBJS)
 
 all: $(LINK_TARGET)
 	@printf "\e[0mdone\n"
@@ -31,4 +31,3 @@ helper.o: file.h shapes.h render.h
 clean:
 	@printf "\e[0m"
 	rm -f $(REBUILDABLES)
-	rm -f globalvars.h
