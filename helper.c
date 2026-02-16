@@ -271,13 +271,15 @@ int blockToField(int x, int y, int block, int col) //place a block
         case 9:
             if(y<=1)
             {
+                printf("y");
                 return 2;
             }
             if(x>=SIZE-1)
             {
+                printf("e");
                 return 2;
             }
-            if(field[x][y][4] == true || field[x][y-1][4] == true || field[x][y-2][4] == true || field[x+1][y-2][4] == true)
+            if(field[x][y][4] == true || field[x][y-1][4] == true || field[x][y-2][4] == true || field[x+1][y][4] == true)
             {
                 return 4;
             }
