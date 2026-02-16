@@ -84,6 +84,11 @@ x
 xxx
   x
 ```
+10. bent shape thingy
+```
+x
+xxx
+```
 
 ## random advanced stuff
 - `wait time`: this is the amount (in ms) that the stars will falsh for when a line is cleared (assuming CLEAR is enabled).
@@ -108,6 +113,7 @@ This guy just has each color's r,g,b values listed separated by commas. USE NO S
 - no way to change settings from program
 - Some iniefficiency/redundancy in rendering
 - animation causes flickering
-- the shapes stuff is quite inelegant and needs fixing
 - Check (settings checker) DOES NOT EXIST AT ALL DON'T WORRY ABOUT IT
 - Should really put overall helpers and game-specific helpers in different .h/.c files
+- I just realized that the difference between hints and rendering is weird inelegant
+- Tabs break everything but only in specific places

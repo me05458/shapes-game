@@ -17,6 +17,7 @@ void renderLine0(int type, int r, int g, int b)
         case 5:
         case 8:
         case 9:
+        case 10:
             setCol(-1);
             printf("         ");
             break;
@@ -77,7 +78,13 @@ void renderLine1(int type, int r, int g, int b)
             setColRGB(r,g,b);
             printf(" * ");
             setCol(-1);
+            printf("      ");
+            break;
+        case 10:
+            setColRGB(r,g,b);
             printf("   ");
+            setCol(-1);
+            printf("       ");
             break;
         case 2:
         case 7:
@@ -184,6 +191,19 @@ void renderLine2(int type, int r, int g, int b)
             setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
             printf("   ");
             setCol(-1);
+            break;
+        case 10:
+            setColRGB(r,g,b);
+            printf(" * ");
+            setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setColRGB(r,g,b);
+            printf("   ");
+            setCol(-1);
+            break;
+        default:
+            setCol(-1);
+            printf("Incorrect shape type!\n");
             break;
     }
 

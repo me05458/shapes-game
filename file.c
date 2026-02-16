@@ -5,7 +5,7 @@
 #include "helper.h"
 #define CHECK if(e < 0){printf("Warning: settings file doesn't have enough entries!\n");return 1;}
 #define READWORD while(c != ':'){ e=fscanf(ptr, "%c",&c); if(VERBOSE) { printf("%c",c); } CHECK; }
-#define TOTALBLOCKS 10
+#define TOTALBLOCKS 11
 
 int readFile()
 {
@@ -160,50 +160,56 @@ int readFile()
     if(VERBOSE)
         printf(" %d\n",USE_SYS);
 
+    ////-----
+
     READWORD
     int t_blocks[TOTALBLOCKS];
     BLOCKNUM = 0;
     e=fscanf(ptr, "%c", &c);
     CHECK
-    e = fscanf(ptr, "%c",&c);
+
+    BLOCKNUM = 1;
+    e=fscanf(ptr, "%d", &t_blocks[0]);
     CHECK
-    int q = charEater(c);
-    if(q < 0)
+    if(t_blocks[0] < 0 || t_blocks[0] >= TOTALBLOCKS)
     {
-        printf("Invalid block sequence.\n");
+        printf("\nInvalid block type!\n");
         return 2;
     }
-    else
+    if(VERBOSE)
     {
-        t_blocks[BLOCKNUM] = q;
-        BLOCKNUM++;
+        printf("\n%d",t_blocks[0]);
     }
     e = fscanf(ptr, "%c",&c);
     CHECK
-    while (c != '\n')
+    while(c != '\n')
     {
-        if(c != ',')
+        if(BLOCKNUM >= TOTALBLOCKS)
         {
-            printf("Invalid blocks formatting!\n");
-            return 2;
+            printf("\nToo many blocks!\n");
+            goto blockending;
         }
-        e=fscanf(ptr, "%c", &c);
+        if(c!= ',')
+        {
+            printf("\nInvalid blocks formatting!\n");
+            return 1;
+        }
+        e=fscanf(ptr, "%d", &t_blocks[BLOCKNUM]);
         CHECK
-        int q = charEater(c);
-        if(q < 0)
+        if(t_blocks[BLOCKNUM] < 0 || t_blocks[BLOCKNUM] >= TOTALBLOCKS)
         {
-            printf("Invalid block sequence.\n");
-            return 2;
+            printf("\nInvalid block type!\n");
+            return 1;
         }
-        else
+        if(VERBOSE)
         {
-
-            t_blocks[BLOCKNUM] = q;
-            BLOCKNUM++;
+            printf(",%d",t_blocks[BLOCKNUM]);
         }
-        e = fscanf(ptr, "%c", &c);
+        BLOCKNUM++;
+        e = fscanf(ptr, "%c",&c);
         CHECK
     }
+    blockending:
     blocks = (int*)calloc(BLOCKNUM,sizeof(int));
     if(blocks == nullptr)
     {
@@ -213,11 +219,11 @@ int readFile()
     for(int i = 0; i< BLOCKNUM; i++)
     {
         blocks[i] = t_blocks[i];
-        if(VERBOSE)
-            printf("%d,",blocks[i]);
     }
     if(VERBOSE)
         printf("\n");
+
+    ////-----
 
 
     READWORD
@@ -372,6 +378,10 @@ int readFile()
 
     //COLORS
 
+    if(VERBOSE)
+    {
+        printf("colors:\n");
+    }
     fclose(ptr);
     ptr = fopen("color.txt", "r");
     if (ptr == NULL) {
