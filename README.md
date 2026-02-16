@@ -19,7 +19,7 @@ installation:
 git clone https://github.com/me05458/shapes-game&&cd shapes-game
 make
 ```
-to run the game: `./game`\
+to run the game: `./game`
 
 # settings
 There are two settings files: settings.txt and color.txt. Settings.txt has all of the normal settings, described below (not necessarily in ordder). color.txt has all of the colors in it. (see [color.txt](#colortxt))
@@ -34,7 +34,8 @@ There are two settings files: settings.txt and color.txt. Settings.txt has all o
 Should be entered in the blocks: line in settings. The following formatting must be followed, or the game cannot run:
 ```blocks: <#>,<#>,<#>```
 Supported blocks are:  
-0. square
+
+   0. square
 ```
 x
 ```
