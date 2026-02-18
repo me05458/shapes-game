@@ -74,6 +74,7 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
     {
         for(int i = 0; i<3; i++)
         {
+            printf("   ");
             renderShapeLineRGB(type, r,g,b,i);
             if(type != -1 && type != -2)
             {
@@ -303,15 +304,26 @@ void renderShapeRGB(int type, int r, int g, int b, bool head)
 
 void renderShapeLineRGB(int type, int r, int g, int b, int line) //all shapes have 3 lines
 {
+    //printf("type: %d\n",type);
         switch(line){
             case 0:
-                renderLine0(type,r,g,b);
+                if(type == 1 || type == 6 || type == 7)
+                {
+
+                   // printf("render 0");
+                    renderLine0(type,r,g,b);
+                }
                 break;
             case 1:
+               // printf("render 1");
                 renderLine1(type,r,g,b);
                 break;
             case 2:
-                renderLine2(type,r,g,b);
+                if(type != 4 && type != 0 && type != 2)
+                {
+                    //printf("render 2");
+                    renderLine2(type,r,g,b);
+                }
                 break;
             default:
                 printf("Invalid shape line!\n");

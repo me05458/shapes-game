@@ -794,6 +794,7 @@ void renderBoard() //draw the board
     setCol(-1); //normal colors now
     printf("\n"); //a bit more spacing
     renderShape(c_block,c_col,true); //draw the current block
+    printf("\n");
 }
 void renderBoardHead() //same as renderBoard except stars are determined by field[foo][foo][3] (the one that determines if star)
 {
@@ -856,6 +857,7 @@ void renderBoardHead() //same as renderBoard except stars are determined by fiel
     setCol(-1);
     printf("\n");
     renderShape(c_block,c_col,true);
+    printf("\n");
 }
 int init() //this is to start randomness and clear board
 {
