@@ -19,7 +19,7 @@ all: $(LINK_TARGET)
 	@printf "\e[0muse \e[92m./game\e[0m to play or edit \e[93msettings.txt\e[0m or \e[93mcolor.txt\e[0m to change settings.\n"
 
 $(LINK_TARGET): $(OBJS) $(GAME_OBJS) makefile vars.h helper.h
-	gcc -o $@ $(GAME_OBJS) $(OBJS) -lsodium
+	gcc -o $@ $(GAME_OBJS) $(OBJS) -lsodium -std=c++11
 
 %.o : %.c settings.h
 	gcc -o $@ -c $<
