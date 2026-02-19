@@ -98,9 +98,18 @@ int main()
             if(!started&&isEmpty())
             {
                 //you win when the thing's empty, except it's empty at the start, so ignore that case!
-                printf("Congradulations! You win!\n"
-                "You used %d hints, placed %d blocks, and used %d reloads, and cleared %d lines\n",hintCount,blockCount,reloadCount,lineCount
-                );
+                if(RELOAD)
+                {
+                    printf("Congradulations! You win!\n"
+                    "You used %d hints, placed %d blocks, used %d reloads, and cleared %d lines\n",hintCount,blockCount,reloadCount,lineCount
+                    );
+                }
+                else
+                {
+                    printf("Congradulations! You win!\n"
+                    "You used %d hints, placed %d blocks, and cleared %d lines\n",hintCount,blockCount,lineCount
+                    );
+                }
                 goto playagain; //ask to play again (see bellow)
             }
         }
@@ -132,8 +141,16 @@ int main()
             else //if no reloads, loose.
             {
                 lost: //go here to play lost sequence.
-                printf("Oh no! You loose!\n"
+                if(RELOAD)
+                {
+                    printf("Oh no! You loose!\n"
                     "You used %d hints, placed %d blocks, used %d reloads, and cleared %d lines.\n",hintCount,blockCount,reloadCount,lineCount);
+                }
+                else
+                {
+                    printf("Oh no! You loose!\n"
+                    "You used %d hints, placed %d blocks, and cleared %d lines.\n",hintCount,blockCount,lineCount);
+                }
                 goto playagain; //play again.
             }
         }

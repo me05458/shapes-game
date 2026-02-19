@@ -1,5 +1,4 @@
 #include "vars.h"
-#include <stdbool.h>
 int field[SIZE][SIZE][5]; //field
 //int blocks[BLOCKNUM] = BLOCKS; //array of blocks
 int *blocks;

@@ -1,6 +1,8 @@
+#include <stdbool.h>
 #ifndef VARS_H
 #define VARS_H
 #define SIZE 9
+
 //global vars :3
 extern int field[SIZE][SIZE][5]; //field
 extern int * blocks;
