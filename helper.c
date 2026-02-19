@@ -931,4 +931,5 @@ int init() //this is to start randomness and clear board
 void uninit()
 {
     free(blocks);
+    free(colors);
 }
