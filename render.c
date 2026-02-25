@@ -18,6 +18,7 @@ void renderLine0(int type, int r, int g, int b)
         case 8:
         case 9:
         case 10:
+        case 11:
             setCol(-1);
             printf("         ");
             break;
@@ -84,7 +85,14 @@ void renderLine1(int type, int r, int g, int b)
             setColRGB(r,g,b);
             printf("   ");
             setCol(-1);
-            printf("       ");
+            printf("      ");
+            break;
+        case 11:
+            setCol(-1);
+            printf("      ");
+            setColRGB(r,g,b);
+            printf("   ");
+            setCol(-1);
             break;
         case 2:
         case 7:
@@ -199,6 +207,15 @@ void renderLine2(int type, int r, int g, int b)
             printf("   ");
             setColRGB(r,g,b);
             printf("   ");
+            setCol(-1);
+            break;
+        case 11:
+            setColRGB(r,g,b);
+            printf("   ");
+            setColRGB(r-SMALLOFF,g-SMALLOFF,b-SMALLOFF);
+            printf("   ");
+            setColRGB(r,g,b);
+            printf(" * ");
             setCol(-1);
             break;
         default:

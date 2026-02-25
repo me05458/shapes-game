@@ -90,6 +90,11 @@ xxx
 x
 xxx
 ```
+11. bent shape thingy
+```
+  x
+xxx
+```
 
 ## random advanced stuff
 - `wait time`: this is the amount (in ms) that the stars will falsh for when a line is cleared (assuming CLEAR is enabled).

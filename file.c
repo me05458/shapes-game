@@ -8,7 +8,7 @@
 //this will just get everything until a : is found.
 #define READWORD while(c != ':'){ e=fscanf(ptr, "%c",&c); if(VERBOSE) { printf("%c",c); } CHECK; }
 //this is the total number of possible blocks, and it's used when determining the max possible amount of user inputted blocks. Don't worry about the define, it's only changed when a new block is added, so it's fiiiine
-#define TOTALBLOCKS 11
+#define TOTALBLOCKS 12
 
 //fyi file can't use values < 0
 
