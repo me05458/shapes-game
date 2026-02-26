@@ -12,16 +12,23 @@
 
 //fyi file can't use values < 0
 
+int writeFile() //stuff things into the file
+{
+    return 0;
+}
+
 int readFile() //so far, we only read the file. Soon, we will also write it.
 {
     int bad = 0; //check that everything went okay (returned at the end, used to track errors)
     FILE *ptr = fopen("settings.txt", "r"); //slurp up the file
-    if (ptr == NULL) { //oh no file doesn't exist
+    if (ptr == nullptr) { //oh no file doesn't exist
         ptr = fopen("settings.txt","w"); //make it exist
         fclose(ptr); //all done with that
         ptr = fopen("settings.txt","r"); //okay now slurp up the file
+        printf("File not found!\n");
     }
 
+    return 1;
     int e; //this will be our reading success tracker (not like books, like files)
 
     char c; //just a random character

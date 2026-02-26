@@ -890,18 +890,7 @@ void renderBoardHead() //same as renderBoard except stars are determined by fiel
 int init() //this is to start randomness and clear board
 {
     int t = readFile();
-    if(t == 1)
-    {
-        printf("Continue anyway (with defaults)? (Y/n)\n");
-        int m = getchar();
-        if (m == 'n' || m=='N' || m=='q' || m=='Q')
-        {
-            return 4;
-        }
-        if(m != '\n')
-            cleanChar();
-    }
-    if(t == 2)
+    if(t == 2|| t==1)
     {
         printf("\e[91mA Catastrophic settings error observed (EXIT CODE 8)\e[0m\n");
         return 8;

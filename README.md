@@ -121,5 +121,5 @@ This guy just has each color's r,g,b values listed separated by commas. USE NO S
 - animation causes flickering
 - Check (settings checker) DOES NOT EXIST AT ALL DON'T WORRY ABOUT IT
 - Should really put overall helpers and game-specific helpers in different .h/.c files
-- I just realized that the difference between hints and rendering is weird inelegant
+- I just realized that the difference between hints and rendering is and weird inelegant but kinda too lazy to refactor
 - Tabs break everything but only in specific places
