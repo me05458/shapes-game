@@ -8,6 +8,7 @@ OBJS = \
        vars.o\
        file.o\
        render.o\
+       helper_big.o\
 
 GAME_OBJS =\
 	game.o
@@ -18,10 +19,10 @@ all: $(LINK_TARGET)
 	@printf "\e[0mdone\n"
 	@printf "\e[0muse \e[92m./game\e[0m to play or edit \e[93msettings.txt\e[0m or \e[93mcolor.txt\e[0m to change settings.\n"
 
-$(LINK_TARGET): $(OBJS) $(GAME_OBJS) makefile vars.h helper.h
+$(LINK_TARGET): $(OBJS) $(GAME_OBJS) makefile vars.h helper_big.h helper.h
 	gcc -o $@ $(GAME_OBJS) $(OBJS) -lsodium
 
-%.o : %.c settings.h
+%.o : %.c
 	gcc -o $@ -c $<
 
 game.o: shapes.h

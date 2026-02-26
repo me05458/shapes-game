@@ -5,8 +5,8 @@
 #include "helper.h"
 #include <time.h>
 #include <unistd.h>
-#include <stdbool.h>
 #include "vars.h"
+#include "file.h"
 #define return uninit(); return //I was too lazy to rewrite the returns to uninitialize...
 
 int reloadCount = 0; //how many times we reloaded

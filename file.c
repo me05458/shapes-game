@@ -14,6 +14,43 @@
 
 int writeFile() //stuff things into the file
 {
+    FILE *ptr = fopen("settings.txt","w"); //file (writing time)
+    //just kinda append everything:
+    fprintf(ptr, "--- settings for shapes-game ---\n"
+    "verbose: %d\n"
+    "reload: %d\n"
+    "clear: %d\n"
+    "subdivisions: %d\n"
+    "normal coordinates: %d\n"
+    "double numbers: %d\n"
+    "wait time: %d\n"
+    "animate: %d\n"
+    "use sys clear: %d\n"
+    "blocks: %d"
+    ,VERBOSE,RELOAD,CLEAR,SUBDIV,NORM_COORD,DOUBLEINT, WAITTIME, ANIMATE, USE_SYS,blocks[0]);
+    for(int i = 1; i<BLOCKNUM; i++) //blocks
+    {
+        fprintf(ptr,",%d",blocks[i]);
+    }
+    fprintf(ptr,"\ntext color r: %d\n"
+    "text color b: %d\n"
+    "text color g: %d\n"
+    "SMALLOFF: %d\n"
+    "BIGOFF: %d\n"
+    "BASECOL: %d\n"
+    "RMOD: %d\n"
+    "GMOD: %d\n"
+    "BMOD: %d\n"
+    "MODBLOCK: %d\n"
+    "MODCOL: %d\n"
+    ,TEXTCOLR,TEXTCOLB,TEXTCOLG,SMALLOFF,BIGOFF,BASECOL,RMOD,GMOD,BMOD,MODBLOCK,MODCOL);
+    fclose(ptr); //all done
+    ptr = fopen("color.txt","w"); //now do colors
+    for(int i = 0; i<=COLNUM; i++)
+    {
+        fprintf(ptr,"%d,%d,%d\n",colors[i],colors[i+1],colors[i+2]);
+    }
+    // fclose(ptr); //all done
     return 0;
 }
 
@@ -28,7 +65,6 @@ int readFile() //so far, we only read the file. Soon, we will also write it.
         printf("File not found!\n");
     }
 
-    return 1;
     int e; //this will be our reading success tracker (not like books, like files)
 
     char c; //just a random character

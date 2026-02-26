@@ -4,23 +4,8 @@
 #include "helper.h"
 #include "shapes.h"
 #include "file.h"
-#include <time.h>
 #include <stdbool.h>
-void cleanChar() //classic cleanchar function.
-{
-    //just get all the characters until newline.
-    while(getchar() != '\n')
-        continue;
-}
 
-void clearScreen()
-{
-    //only clear if using it, mostly for debugging.
-    if(USE_SYS == 1)
-    {
-        system("clear");
-    }
-}
 void changeColorRGB(int xpos, int ypos, int r, int g, int b)
 { //sets an element of field to a color
     //classic mods
@@ -100,14 +85,6 @@ void changeColor(int xpos, int ypos, int color)
     changeColorRGB(xpos,ypos,colors[color*3],colors[color*3 + 1],colors[color*3+2]);
 }
 
-//haha this function is back!
-int charEater(char c)
-{
-    int result =  c - '0'; //the numbers are consecutive so subtract 0
-    if(result > 9||result<0) //it's a letter/other character
-        return -1;
-    return result; //I <3 this function
-}
 int blockToField(int x, int y, int block, int col) //place a block
 { //SHAPES
     //returns 1 == x,y not in field
@@ -551,13 +528,6 @@ void clearFull()
     printf("\e[?25h");
 }
 
-void waitMS(int ms) //this is such a funny way of sleeping this is what I shall do.
-{
-    struct timespec ts; //idk time stuff, too lazy to write comments
-    ts.tv_sec = ms / 1000;
-    ts.tv_nsec = (ms % 1000) * 1000000;
-    nanosleep(&ts, NULL);
-}
 int canPlace(int shape) //CAN it go here?
 //if no -> return -1. if yes -> return i value of first i where it can be placed.
 {//SHAPES
