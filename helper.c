@@ -442,7 +442,7 @@ void clearFull()
             waitMS(WAITTIME); //delay (customizable)
 
             //if last coordinates are part of the line to clear, should be cleared. else * should stay.
-            bool lastImpacted;
+            bool lastImpacted = false;
             for(int i = 0; i<rinum; i++) //now we clear them (for i s)
             {
                 for(int j = 0; j<SIZE; j++)
